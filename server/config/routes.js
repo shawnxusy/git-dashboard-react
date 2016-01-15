@@ -20,7 +20,7 @@ module.exports = function(app, passport) {
   // Redirect the user to Google for authentication. When complete, Google
   // will redirect the user back to the application at
   // /auth/google/return
-  // Authentication with google requires an additional scope param, for more info go 
+  // Authentication with google requires an additional scope param, for more info go
   // here https://developers.google.com/identity/protocols/OpenIDConnect#scope-param
   app.get('/auth/google', passport.authenticate('google', { scope: [
         'https://www.googleapis.com/auth/userinfo.profile',
@@ -32,6 +32,20 @@ module.exports = function(app, passport) {
   // Otherwise, the authentication has failed.
   app.get('/auth/google/callback',
     passport.authenticate('google', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    }));
+
+
+  // github auth
+  app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }),
+    function(req, res) {
+      // left for github to do
+    });
+
+  // github redirect
+  app.get('/auth/github/callback',
+    passport.authenticate('github', {
       successRedirect: '/',
       failureRedirect: '/login'
     }));
@@ -55,6 +69,7 @@ module.exports = function(app, passport) {
   // If you were indeed doing this in production, you should instead only
   // query the Topics on a page that has topics
   app.get('*', function(req, res, next) {
+    console.log("The user is: ", req.user);
     Topic.find({}).exec(function(err, topics) {
       if(!err) {
         var topicmap = _.indexBy(topics, 'id');
@@ -94,4 +109,4 @@ module.exports = function(app, passport) {
     res.end(html);
   });
 
-};;
+};

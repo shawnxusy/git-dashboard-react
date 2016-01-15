@@ -60,7 +60,7 @@ export default class Login extends React.Component {
             </fieldset>
             <h1 className={styles.login__header}>Google Login Demo</h1>
             <fieldset className={styles.login__fieldset}>
-              <a className={styles.login__button + ' ' + styles['login__button--green']} href="/auth/google">Login with Google</a>
+              <a className={styles.login__button + ' ' + styles['login__button--green']} href="/auth/github">Login with Github</a>
             </fieldset>
           </div>
         );
