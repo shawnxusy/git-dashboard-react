@@ -7,10 +7,10 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <div className="col-xm-6">
+        <div className="col-xs-6">
           <FollowedRepoList />
         </div>
-        <div className="col-xm-6">
+        <div className="col-xs-6">
           {this.props.children}
         </div>
       </div>

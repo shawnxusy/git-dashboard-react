@@ -1,7 +1,6 @@
 var path = require("path");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require("webpack");
-
 var assetsPath = path.join(__dirname, "..", "public", "assets");
 var publicPath = "assets/";
 
@@ -18,10 +17,14 @@ var commonLoaders = [
   { test: /\.png$/, loader: "url-loader" },
   { test: /\.jpg$/, loader: "file-loader" },
   { test: /\.html$/, loader: "html-loader" },
+  { test: /\.css$/, loader: 'style-loader!css-loader' },
+  { test: /\.woff$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
+  { test: /\.woff2$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
+  { test: /\.ttf$/,    loader: "url?limit=10000&mimetype=application/octet-stream" },
+  { test: /\.eot$/,    loader: "file" },
+  { test: /\.svg$/,    loader: "url?limit=10000&mimetype=image/svg+xml" },
   { test: /\.scss$/,
-    loader: ExtractTextPlugin.extract('style', 'css?module&localIdentName=[local]__[hash:base64:5]' +
-      '&sourceMap!sass?sourceMap&outputStyle=expanded' +
-      '&includePaths[]=' + (path.resolve(__dirname, '../node_modules')))
+    loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
   }
 ];
 
@@ -71,7 +74,7 @@ module.exports = [
       loaders: commonLoaders
     },
     resolve: {
-      extensions: ['', '.react.js', '.js', '.jsx', '.scss'],
+      extensions: ['', '.react.js', '.js', '.jsx', '.scss', 'css'],
       modulesDirectories: [
         "app", "node_modules"
       ]
@@ -103,7 +106,7 @@ module.exports = [
       loaders: commonLoaders
     },
     resolve: {
-      extensions: ['', '.react.js', '.js', '.jsx', '.scss'],
+      extensions: ['', '.react.js', '.js', '.jsx', '.scss', 'css'],
       modulesDirectories: [
         "app", "node_modules"
       ]
