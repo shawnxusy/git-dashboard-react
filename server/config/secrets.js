@@ -14,6 +14,6 @@ module.exports = {
   github: {
     clientID: process.env.GITHUB_CLIENTID || '1ed54025f0ba1581b43f',
     clientSecret: process.env.GITHUB_SECRET || '5e9e362d0f19df49ce33637a925b6af26d7b1ecd',
-    callbackURL: process.env.GITHUB_CALLBACK || "/auth/github/callback"
+    callbackURL: process.env.GITHUB_CALLBACK || "http://localhost:3000/auth/github/callback"
   }
 };
