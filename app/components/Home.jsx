@@ -1,3 +1,4 @@
+/* jshint esnext: true */
 import React from 'react';
 
 import FollowedRepoList from 'components/FollowedRepoList';

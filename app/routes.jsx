@@ -1,5 +1,8 @@
+/* jshint esnext: true */
+
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
+import $ from 'jquery';
 
 import App from 'components/App';
 // import Vote from 'components/Vote';
@@ -8,8 +11,8 @@ import Login from 'components/Login';
 import Logout from 'components/Logout';
 import Dashboard from 'components/Dashboard';
 import Home from 'components/Home';
-import Repo from 'components/Repo';
-import RepoList from 'components/RepoList';
+import Repo from 'components/repo/Repo';
+import RepoList from 'components/repo/RepoList';
 
 import UserStore from 'stores/UserStore';
 

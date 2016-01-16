@@ -5,6 +5,8 @@ var topics = require('../controllers/topics');
 var express = require('express');
 var users = require('../controllers/users');
 var mongoose = require('mongoose');
+var request = require('request');
+var jsonParser = require('json-parser');
 var _ = require('lodash');
 var Topic = mongoose.model('Topic');
 var Header = require('../../public/assets/header.server');
@@ -50,6 +52,57 @@ module.exports = function(app, passport) {
       failureRedirect: '/login'
     }));
 
+  /**
+   * GET /api/repos
+   * Returns a list of repos for user name
+   */
+  app.get('/api/repos/:username', function(req, res, next) {
+    var username = req.params.username;
+    var reposLookupPack = {
+      url: 'https://api.github.com/users/' + username + '/repos',
+      headers: {
+        'User-Agent': 'S.X Dashboard'
+      }
+    };
+
+    request.get(reposLookupPack, function(err, request, json) {
+      if (err) return next(err);
+
+      var repos = [];
+      var result = jsonParser.parse(json);
+
+      _.each(result, function(repo) {
+        repos.push(repo);
+      });
+
+      res.send(repos);
+    });
+  });
+
+  /**
+   * GET /api/repo/:repoId
+   * Returns detail of a repo
+   */
+  app.get('/api/repo/:repoName', function(req, res, next) {
+    var repoName = req.params.repoName;
+    var repoLookupPack = {
+      url: 'https://api.github.com/repos/shawnxusy/' + repoName,
+      headers: {
+        'User-Agent': 'S.X Dashboard'
+      }
+    };
+
+    request.get(repoLookupPack, function(err, request, json) {
+      if (err) return next(err);
+
+      var repos = [];
+      var result = jsonParser.parse(json);
+
+      res.send(result);
+    });
+  });
+
+
   // topic routes
   app.get('/topic', topics.all);
 
@@ -69,7 +122,6 @@ module.exports = function(app, passport) {
   // If you were indeed doing this in production, you should instead only
   // query the Topics on a page that has topics
   app.get('*', function(req, res, next) {
-    console.log("The user is: ", req.user);
     Topic.find({}).exec(function(err, topics) {
       if(!err) {
         var topicmap = _.indexBy(topics, 'id');
