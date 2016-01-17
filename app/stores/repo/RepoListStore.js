@@ -1,7 +1,7 @@
 /* jshint esnext:true */
 
-import alt from '../../altInstance';
-import RepoListActions from '../../actions/repo/RepoListActions';
+import alt from 'altInstance';
+import RepoListActions from 'actions/repo/RepoListActions';
 
 class RepoListStore {
   constructor() {
@@ -12,11 +12,12 @@ class RepoListStore {
   static displayName = 'RepoListStore';
 
   onGetReposSuccess(data) {
+    console.log("RepoListStore.js, current repos is: ", data);
     this.repos = data;
   }
 
   onGetReposFail(errorMessage) {
-    toastr.error(errorMessage);
+    console.log(errorMessage);
   }
 }
 

@@ -40,7 +40,7 @@ module.exports = function(app, passport) {
 
 
   // github auth
-  app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }),
+  app.get('/auth/github', passport.authenticate('github', { scope: [ 'user', 'repo', 'public_repo', 'delete_repo' ] }),
     function(req, res) {
       // left for github to do
     });
@@ -56,12 +56,13 @@ module.exports = function(app, passport) {
    * GET /api/repos
    * Returns a list of repos for user name
    */
-  app.get('/api/repos/:username', function(req, res, next) {
+  app.get('/api/repos', function(req, res, next) {
     var username = req.params.username;
     var reposLookupPack = {
-      url: 'https://api.github.com/users/' + username + '/repos',
+      url: 'https://api.github.com/user/repos',
       headers: {
-        'User-Agent': 'S.X Dashboard'
+        'User-Agent': 'S.X Dashboard',
+        'Authorization': 'token ' + req.user.token
       }
     };
 
@@ -86,7 +87,7 @@ module.exports = function(app, passport) {
   app.get('/api/repo/:repoName', function(req, res, next) {
     var repoName = req.params.repoName;
     var repoLookupPack = {
-      url: 'https://api.github.com/repos/shawnxusy/' + repoName,
+      url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName,
       headers: {
         'User-Agent': 'S.X Dashboard'
       }
@@ -99,6 +100,29 @@ module.exports = function(app, passport) {
       var result = jsonParser.parse(json);
 
       res.send(result);
+    });
+  });
+
+  /**
+   * POST /api/repo
+   * Create a new repo
+   */
+  app.post('/api/repo', function(req, res, next) {
+    req.body.private = (req.body.private === 'true');
+    var repoCreatePack = {
+      url: 'https://api.github.com/user/repos',
+      headers: {
+        'User-Agent': 'S.X Dashboard',
+        'Authorization': 'token ' + req.user.token,
+        'Content-type': 'application/json',
+        'scope': '["repo"]'
+      },
+      json: req.body
+    };
+
+    request.post(repoCreatePack, function(err, request, json) {
+      if (err) return next(err);
+      res.send(json);
     });
   });
 

@@ -8,15 +8,23 @@ const utils = {
    */
   getRepos: () => {
     return $.ajax({
-      url: '/api/repos/shawnxusy',
+      url: '/api/repos',
       type: 'GET'
     });
   },
 
   getRepo: (repoName) => {
     return $.ajax({
-        url: '/api/repo/' + repoName,
-        type: 'GET'
+      url: '/api/repo/' + repoName,
+      type: 'GET'
+    });
+  },
+
+  createRepo: (name, description, homepage, privacy) => {
+    return $.ajax({
+      url: '/api/repo',
+      type: 'POST',
+      data: {name: name, description: description, homepage: homepage, 'private': privacy}
     });
   }
 

@@ -1,7 +1,7 @@
 /* jshint esnext:true */
 
-import alt from '../../altInstance';
-import RepoActions from '../../actions/repo/RepoActions';
+import alt from 'altInstance';
+import RepoActions from 'actions/repo/RepoActions';
 
 class RepoStore {
   constructor() {
@@ -16,7 +16,7 @@ class RepoStore {
   }
 
   onGetRepoFail(errorMessage) {
-    toastr.error(errorMessage);
+    console.log(errorMessage);
   }
 }
 

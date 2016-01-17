@@ -1,5 +1,5 @@
 /* jshint esnext:true */
-import alt from '../../altInstance';
+import alt from 'altInstance';
 import RepoWebAPIUtils from 'utils/RepoWebAPIUtils';
 
 class RepoActions {

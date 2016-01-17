@@ -27,18 +27,24 @@ module.exports = new GitHubStrategy({
     callbackURL: secrets.github.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
+      console.log("accessToken is: ", accessToken);
       User.findOne({userId: profile.id}, function(err, existingUser) {
         if (existingUser) {
           // If the user is already there in DB
-          done(err, existingUser);
+          // Update user's token
+          existingUser.token = accessToken;
+          existingUser.save(function(err) {
+            done(err, existingUser);
+          });
         } else {
           // If the user does not exist DB
           var user = new User();
           user.userId = profile.id;
           user.email = profile.emails[0].value;
           user.name = profile.displayName;
+          user.username = profile.username;
           user.picture = profile._json.avatar_url;
-          user.tokens.push({ kind: 'github', accessToken: accessToken });
+          user.token = accessToken;
           user.save(function(err) {
             done(err, user);
           });

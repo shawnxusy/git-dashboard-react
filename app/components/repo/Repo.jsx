@@ -1,8 +1,8 @@
 /* jshint esnext:true */
 
 import React from 'react';
-import RepoStore from '../../stores/repo/RepoStore';
-import RepoActions from '../../actions/repo/RepoActions';
+import RepoStore from 'stores/repo/RepoStore';
+import RepoActions from 'actions/repo/RepoActions';
 
 export default class Repo extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class Repo extends React.Component {
   render() {
     return (
       <div>
-        <h3 className='text-center'>This is showing a single repo!</h3>
+        <h3 className="text-center">This is showing a single repo!</h3>
         <div>
           {this.state.repo.id} - {this.state.repo.name}
         </div>
@@ -35,7 +35,3 @@ export default class Repo extends React.Component {
     );
   }
 }
-
-Repo.propTypes = {
-
-};
