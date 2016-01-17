@@ -10,7 +10,8 @@ class RepoActions {
       'getBranchesSuccess',
       'getBranchesFail',
       'getIssuesSuccess',
-      'getIssuesFail'
+      'getIssuesFail',
+      'toggleCreateTask'
     );
   }
 
@@ -46,7 +47,6 @@ class RepoActions {
         }
       });
   }
-
 }
 
 export default alt.createActions(RepoActions);

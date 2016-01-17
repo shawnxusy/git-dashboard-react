@@ -1,7 +1,7 @@
 /* jshint esnext:true */
 
 import React from 'react';
-import {Link} from 'react-router';
+import RepoBranch from 'components/repo/RepoBranch';
 
 export default class RepoBranchList extends React.Component {
 
@@ -9,7 +9,7 @@ export default class RepoBranchList extends React.Component {
     let branchNodes = this.props.branches.map((branch) => {
       return (
         <div key={branch.commit.sha}>
-            <div>{branch.name}</div>
+          <RepoBranch branch={branch} />
         </div>
       );
     });
@@ -19,5 +19,6 @@ export default class RepoBranchList extends React.Component {
         <div> {branchNodes} </div>
       </div>
     );
+
   }
 }

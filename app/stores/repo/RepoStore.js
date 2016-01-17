@@ -1,6 +1,7 @@
 /* jshint esnext:true */
 
 import alt from 'altInstance';
+import _ from 'lodash';
 import RepoActions from 'actions/repo/RepoActions';
 
 class RepoStore {
@@ -22,8 +23,10 @@ class RepoStore {
   }
 
   onGetBranchesSuccess(data) {
-    console.log("Branches: ", data);
     this.branches = data;
+    _.each(this.branches, (branch) => {
+      branch.taskBox = false;
+    })
   }
 
   onGetBranchesFail(errorMessage) {
@@ -31,12 +34,18 @@ class RepoStore {
   }
 
   onGetIssuesSuccess(data) {
-    console.log("Issues: ", data);
     this.issues = data;
   }
 
-  onGetIssuesFail(data) {
+  onGetIssuesFail(errorMessage) {
     console.log(errorMessage);
+  }
+
+  onToggleCreateTask(sha) {
+    let targetBranch = _.find(this.branches, function(branch) {
+      return branch.commit.sha === sha;
+    })
+    targetBranch.taskBox = !targetBranch.taskBox;
   }
 
 }

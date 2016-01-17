@@ -35,6 +35,13 @@ const utils = {
     });
   },
 
+  getBranch: (repoName, branchName) =>{
+    return $.ajax({
+      url: '/api/branch/' + repoName + '/' + branchName,
+      type: 'GET'
+    });
+  },
+
   getIssues: (repoName) => {
     return $.ajax({
       url: '/api/issues/' + repoName,

@@ -5,10 +5,10 @@ var topics = require('../controllers/topics');
 var express = require('express');
 var users = require('../controllers/users');
 var mongoose = require('mongoose');
-var request = require('request');
-var jsonParser = require('json-parser');
+var rp = require('request-promise');
 var _ = require('lodash');
 var Topic = mongoose.model('Topic');
+var Task = mongoose.model('Task');
 var Header = require('../../public/assets/header.server');
 var App = require('../../public/assets/app.server');
 var secrets = require('./secrets');
@@ -68,21 +68,17 @@ module.exports = function(app, passport) {
       headers: {
         'User-Agent': 'S.X Dashboard',
         'Authorization': 'token ' + req.user.token
-      }
+      },
+      json: true
     };
 
-    request.get(reposLookupPack, function(err, request, json) {
-      if (err) return next(err);
-
-      var repos = [];
-      var result = jsonParser.parse(json);
-
-      _.each(result, function(repo) {
-        repos.push(repo);
+    rp(reposLookupPack)
+      .then(function(repos) {
+        res.send(repos);
+      })
+      .catch(function(err) {
+        return next(err);
       });
-
-      res.send(repos);
-    });
   });
 
   /**
@@ -95,16 +91,17 @@ module.exports = function(app, passport) {
       url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + rateLimitDisabler,
       headers: {
         'User-Agent': 'S.X Dashboard'
-      }
+      },
+      json: true
     };
 
-    request.get(repoLookupPack, function(err, request, json) {
-      if (err) return next(err);
-
-      var result = jsonParser.parse(json);
-
-      res.send(result);
-    });
+    rp(repoLookupPack)
+      .then(function(repo) {
+        res.send(repo);
+      })
+      .catch(function(err) {
+        return next(err);
+      });
   });
 
   /**
@@ -114,6 +111,7 @@ module.exports = function(app, passport) {
   app.post('/api/repo', function(req, res, next) {
     req.body.private = (req.body.private === 'true');
     var repoCreatePack = {
+      method: 'POST',
       url: 'https://api.github.com/user/repos',
       headers: {
         'User-Agent': 'S.X Dashboard',
@@ -121,13 +119,17 @@ module.exports = function(app, passport) {
         'Content-type': 'application/json',
         'scope': '["repo"]'
       },
-      json: req.body
+      body: req.body,
+      json: true
     };
 
-    request.post(repoCreatePack, function(err, request, json) {
-      if (err) return next(err);
-      res.send(json);
-    });
+    rp(repoCreatePack)
+      .then(function(response) {
+        res.send(response);
+      })
+      .catch(function(err) {
+        return next(err);
+      });
   });
 
   /**
@@ -140,21 +142,41 @@ module.exports = function(app, passport) {
       url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + '/branches' + rateLimitDisabler,
       headers: {
         'User-Agent': 'S.X Dashboard'
-      }
+      },
+      json: true
     };
 
-    request.get(branchesLookupPack, function(err, request, json) {
-      if (err) return next(err);
-
-      var branches = [];
-      var result = jsonParser.parse(json);
-
-      _.each(result, function(branch) {
-        branches.push(branch);
+    rp(branchesLookupPack)
+      .then(function(branches) {
+        res.send(branches);
+      })
+      .catch(function(err) {
+        return next(err);
       });
+  });
 
-      res.send(branches);
-    });
+  /**
+   * GET /api/branches/:repoName
+   * Returns a list of branches for repo
+   */
+  app.get('/api/branch/:repoName/:branchName', function(req, res, next) {
+    var repoName = req.params.repoName;
+    var branchName = req.params.branchName;
+    var branchLookupPack = {
+      url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + '/branches/' + branchName + rateLimitDisabler,
+      headers: {
+        'User-Agent': 'S.X Dashboard'
+      },
+      json: true
+    };
+
+    rp(branchLookupPack)
+      .then(function(branch) {
+        res.send(branch);
+      })
+      .catch(function(err) {
+        return next(err);
+      });
   });
 
   /**
@@ -167,21 +189,17 @@ module.exports = function(app, passport) {
       url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + '/issues' + rateLimitDisabler,
       headers: {
         'User-Agent': 'S.X Dashboard'
-      }
+      },
+      json: true
     };
 
-    request.get(issuesLookupPack, function(err, request, json) {
-      if (err) return next(err);
-
-      var issues = [];
-      var result = jsonParser.parse(json);
-
-      _.each(result, function(issue) {
-        issues.push(issue);
+    rp(issuesLookupPack)
+      .then(function(issues) {
+        res.send(issues);
+      })
+      .catch(function(err) {
+        return next(err);
       });
-
-      res.send(issues);
-    });
   });
 
 
