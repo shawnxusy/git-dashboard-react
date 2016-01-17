@@ -82,7 +82,7 @@ module.exports = [
     plugins: [
         // extract inline css from modules into separate files
         new ExtractTextPlugin("styles/main.css"),
-        new webpack.optimize.UglifyJsPlugin()
+        // new webpack.optimize.UglifyJsPlugin() Disable for dev purposes
     ]
   }, {
     // The configuration for the server-side rendering
@@ -114,7 +114,7 @@ module.exports = [
     plugins: [
         // extract inline css from modules into separate files
         new ExtractTextPlugin("styles/main.css"),
-        new webpack.optimize.UglifyJsPlugin()
+        //new webpack.optimize.UglifyJsPlugin() Disable uglify for dev purposes
     ]
   }
 ];

@@ -26,6 +26,20 @@ const utils = {
       type: 'POST',
       data: {name: name, description: description, homepage: homepage, 'private': privacy}
     });
+  },
+
+  getBranches: (repoName) => {
+    return $.ajax({
+      url: '/api/branches/' + repoName,
+      type: 'GET'
+    });
+  },
+
+  getIssues: (repoName) => {
+    return $.ajax({
+      url: '/api/issues/' + repoName,
+      type: 'GET'
+    });
   }
 
 };

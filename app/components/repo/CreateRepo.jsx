@@ -1,7 +1,7 @@
 /* jshint esnext:true */
 
 import React from 'react';
-import ReposActions from 'actions/repo/ReposActions';
+import RepoListActions from 'actions/repo/RepoListActions';
 
 export default class CreateRepo extends React.Component {
 
@@ -12,27 +12,27 @@ export default class CreateRepo extends React.Component {
           <div className="form-group">
             <label className="control-label">Repository Name</label>
             <input type="text" className="form-control" ref="nameTextField" value={this.props.newRepo.name}
-                   onChange={ReposActions.updateName} autoFocus/>
+                   onChange={RepoListActions.updateName} autoFocus/>
           </div>
           <div className="form-group">
             <label className="control-label">Description</label>
             <input type="text" className="form-control" ref="descriptionTextField" value={this.props.newRepo.description}
-                   onChange={ReposActions.updateDescription} />
+                   onChange={RepoListActions.updateDescription} />
           </div>
           <div className="form-group">
             <label className="control-label">Homepage</label>
             <input type="text" className="form-control" value={this.props.newRepo.homepage}
-                   onChange={ReposActions.updateHomepage} />
+                   onChange={RepoListActions.updateHomepage} />
           </div>
           <div className="form-group">
             <div className="radio radio-inline">
               <input type="radio" name="privacy" id="public" value="public" checked={this.props.newRepo.privacy === 'public'}
-                     onChange={ReposActions.updatePrivacy}/>
+                     onChange={RepoListActions.updatePrivacy}/>
               <label htmlFor="public">Public</label>
             </div>
             <div className="radio radio-inline">
               <input type="radio" name="privacy" id="private" value="private" checked={this.props.newRepo.privacy === 'private'}
-                     onChange={ReposActions.updatePrivacy}/>
+                     onChange={RepoListActions.updatePrivacy}/>
               <label htmlFor="private">Private</label>
             </div>
           </div>
@@ -57,7 +57,7 @@ export default class CreateRepo extends React.Component {
     }
 
     if (name && description) {
-      ReposActions.createRepo(name, description, homepage, privacy);
+      RepoListActions.createRepo(name, description, homepage, privacy);
     }
   }
 }

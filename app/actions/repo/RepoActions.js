@@ -6,7 +6,11 @@ class RepoActions {
   constructor() {
     this.generateActions(
       'getRepoSuccess',
-      'getRepoFail'
+      'getRepoFail',
+      'getBranchesSuccess',
+      'getBranchesFail',
+      'getIssuesSuccess',
+      'getIssuesFail'
     );
   }
 
@@ -17,6 +21,28 @@ class RepoActions {
           this.actions.getRepoSuccess(response);
         } else {
           this.actions.getRepoFail(response);
+        }
+      });
+  }
+
+  getBranches(repoName) {
+    RepoWebAPIUtils.getBranches(repoName)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.getBranchesSuccess(response);
+        } else {
+          this.actions.getBranchesFail(response);
+        }
+      });
+  }
+
+  getIssues(repoName) {
+    RepoWebAPIUtils.getIssues(repoName)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.getIssuesSuccess(response);
+        } else {
+          this.actions.getIssuesFail(response);
         }
       });
   }

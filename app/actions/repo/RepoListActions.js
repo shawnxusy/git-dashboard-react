@@ -2,7 +2,7 @@
 import alt from 'altInstance';
 import RepoWebAPIUtils from 'utils/RepoWebAPIUtils';
 
-class ReposActions {
+class RepoListActions {
   constructor() {
     this.generateActions(
       'getReposSuccess',
@@ -38,8 +38,6 @@ class ReposActions {
         }
       });
   }
-
-
 }
 
-export default alt.createActions(ReposActions);
+export default alt.createActions(RepoListActions);

@@ -7,6 +7,8 @@ class RepoStore {
   constructor() {
     this.bindActions(RepoActions);
     this.repo = {};
+    this.branches = [];
+    this.issues = [];
   }
 
   static displayName = 'RepoStore';
@@ -18,6 +20,25 @@ class RepoStore {
   onGetRepoFail(errorMessage) {
     console.log(errorMessage);
   }
+
+  onGetBranchesSuccess(data) {
+    console.log("Branches: ", data);
+    this.branches = data;
+  }
+
+  onGetBranchesFail(errorMessage) {
+    console.log(errorMessage);
+  }
+
+  onGetIssuesSuccess(data) {
+    console.log("Issues: ", data);
+    this.issues = data;
+  }
+
+  onGetIssuesFail(data) {
+    console.log(errorMessage);
+  }
+
 }
 
 export default alt.createStore(RepoStore);

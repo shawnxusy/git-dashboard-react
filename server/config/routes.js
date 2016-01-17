@@ -11,8 +11,13 @@ var _ = require('lodash');
 var Topic = mongoose.model('Topic');
 var Header = require('../../public/assets/header.server');
 var App = require('../../public/assets/app.server');
+var secrets = require('./secrets');
 
 module.exports = function(app, passport) {
+  // Use to increase unauthenticated rate limit for Github OAuth
+  // Disable when in prod!
+  var rateLimitDisabler = "?client_id=" + secrets.github.clientID + "&client_secret=" + secrets.github.clientSecret;
+
   // user routes
   app.post('/login', users.postLogin);
   app.post('/signup', users.postSignUp);
@@ -59,7 +64,7 @@ module.exports = function(app, passport) {
   app.get('/api/repos', function(req, res, next) {
     var username = req.params.username;
     var reposLookupPack = {
-      url: 'https://api.github.com/user/repos',
+      url: 'https://api.github.com/user/repos?affiliation=owner,collaborator', // We only want owner and collaborator repos, not organization ones
       headers: {
         'User-Agent': 'S.X Dashboard',
         'Authorization': 'token ' + req.user.token
@@ -81,13 +86,13 @@ module.exports = function(app, passport) {
   });
 
   /**
-   * GET /api/repo/:repoId
+   * GET /api/repo/:repoName
    * Returns detail of a repo
    */
   app.get('/api/repo/:repoName', function(req, res, next) {
     var repoName = req.params.repoName;
     var repoLookupPack = {
-      url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName,
+      url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + rateLimitDisabler,
       headers: {
         'User-Agent': 'S.X Dashboard'
       }
@@ -96,7 +101,6 @@ module.exports = function(app, passport) {
     request.get(repoLookupPack, function(err, request, json) {
       if (err) return next(err);
 
-      var repos = [];
       var result = jsonParser.parse(json);
 
       res.send(result);
@@ -123,6 +127,60 @@ module.exports = function(app, passport) {
     request.post(repoCreatePack, function(err, request, json) {
       if (err) return next(err);
       res.send(json);
+    });
+  });
+
+  /**
+   * GET /api/branches/:repoName
+   * Returns a list of branches for repo
+   */
+  app.get('/api/branches/:repoName', function(req, res, next) {
+    var repoName = req.params.repoName;
+    var branchesLookupPack = {
+      url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + '/branches' + rateLimitDisabler,
+      headers: {
+        'User-Agent': 'S.X Dashboard'
+      }
+    };
+
+    request.get(branchesLookupPack, function(err, request, json) {
+      if (err) return next(err);
+
+      var branches = [];
+      var result = jsonParser.parse(json);
+
+      _.each(result, function(branch) {
+        branches.push(branch);
+      });
+
+      res.send(branches);
+    });
+  });
+
+  /**
+   * GET /api/issues/:repoName
+   * Returns a list of issues for repo
+   */
+  app.get('/api/issues/:repoName', function(req, res, next) {
+    var repoName = req.params.repoName;
+    var issuesLookupPack = {
+      url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + '/issues' + rateLimitDisabler,
+      headers: {
+        'User-Agent': 'S.X Dashboard'
+      }
+    };
+
+    request.get(issuesLookupPack, function(err, request, json) {
+      if (err) return next(err);
+
+      var issues = [];
+      var result = jsonParser.parse(json);
+
+      _.each(result, function(issue) {
+        issues.push(issue);
+      });
+
+      res.send(issues);
     });
   });
 

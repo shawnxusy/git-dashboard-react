@@ -1,11 +1,11 @@
 /* jshint esnext:true */
 
 import alt from 'altInstance';
-import ReposActions from 'actions/repo/ReposActions';
+import RepoListActions from 'actions/repo/RepoListActions';
 
-class ReposStore {
+class RepoListStore {
   constructor() {
-    this.bindActions(ReposActions);
+    this.bindActions(RepoListActions);
     this.repos = [];
     this.newRepo = {
       name: "",
@@ -34,7 +34,7 @@ class ReposStore {
     this.newRepo.description = "";
     this.newRepo.homepage = "";
     this.newRepo.privacy = "public";
-    
+
     this.emitChange();
   }
 
@@ -61,8 +61,6 @@ class ReposStore {
     this.newRepo.privacy = event.target.value;
     this.emitChange();
   }
-
-
 }
 
-export default alt.createStore(ReposStore);
+export default alt.createStore(RepoListStore);

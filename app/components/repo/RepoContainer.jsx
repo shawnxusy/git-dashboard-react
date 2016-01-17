@@ -1,25 +1,28 @@
 /* jshint esnext:true */
 
 import React from 'react';
-import ReposStore from 'stores/repo/ReposStore';
-import CreateRepo from 'components/repo/CreateRepo';
-import RepoList from 'components/repo/RepoList';
-import ReposActions from 'actions/repo/ReposActions';
+import RepoStore from 'stores/repo/RepoStore';
+import RepoActions from 'actions/repo/RepoActions';
+import RepoBranchList from 'components/repo/RepoBranchList';
+import CreateBranch from 'components/repo/CreateBranch';
+import RepoIssueList from 'components/repo/RepoIssueList';
 
 export default class RepoContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ReposStore.getState();
+    this.state = RepoStore.getState();
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    ReposStore.listen(this.onChange);
-    ReposActions.getRepos();
+    RepoStore.listen(this.onChange);
+    RepoActions.getRepo(this.props.params.name);
+    RepoActions.getBranches(this.props.params.name);
+    RepoActions.getIssues(this.props.params.name);
   }
 
   componentWillUnmount() {
-    ReposStore.unlisten(this.onChange);
+    RepoStore.unlisten(this.onChange);
   }
 
   onChange(state) {
@@ -29,11 +32,20 @@ export default class RepoContainer extends React.Component {
   render() {
     return (
       <div>
-        <h3 className="text-center">Here is a list of your repos!</h3>
-        <CreateRepo newRepo={this.state.newRepo} />
-        <RepoList repos={this.state.repos} />
+        <h3 className="text-center">This is showing a single repo!</h3>
+        <div>
+          {this.state.repo.id} - {this.state.repo.name}
+        </div>
+        <div>
+          <h4 className="text-center">A list of repo branches</h4>
+          <CreateBranch newBranch={this.state.newBranch} />
+          <RepoBranchList branches={this.state.branches} />
+        </div>
+        <div>
+          <h4 className="text-center">A list of repo issues</h4>
+          <RepoIssueList issues={this.state.issues} />
+        </div>
       </div>
     );
   }
-
 }
