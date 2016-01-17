@@ -11,7 +11,7 @@ import Logout from 'components/Logout';
 import Dashboard from 'components/Dashboard';
 import Home from 'components/Home';
 import Repo from 'components/repo/Repo';
-import RepoList from 'components/repo/RepoList';
+import RepoContainer from 'components/repo/RepoContainer';
 
 import UserStore from 'stores/UserStore';
 
@@ -24,7 +24,7 @@ function requireAuth(nextState, replaceState) {
 export default (
   <Route component={App} >
     <Route path="/" component={Home} onEnter={requireAuth}>
-      <IndexRoute component={RepoList} />
+      <IndexRoute component={RepoContainer} />
       <Route path="repo/:name" component={Repo} />
     </Route>
     <Route path="login" component={Login} />

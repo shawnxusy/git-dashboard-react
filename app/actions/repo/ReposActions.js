@@ -1,19 +1,30 @@
-/* jshint esnext:true */
+/* jshint esnext: true */
 import alt from 'altInstance';
 import RepoWebAPIUtils from 'utils/RepoWebAPIUtils';
 
-class CreateRepoActions {
+class ReposActions {
   constructor() {
     this.generateActions(
+      'getReposSuccess',
+      'getReposFail',
       'createRepoSuccess',
-      'creategetRepoFail',
+      'createRepoFail',
       'updateName',
       'updateDescription',
       'updateHomepage',
-      'updatePrivacy',
-      'invalidName',
-      'invalidDescription'
+      'updatePrivacy'
     );
+  }
+
+  getRepos() {
+    RepoWebAPIUtils.getRepos()
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.getReposSuccess(response);
+        } else {
+          this.actions.getReposFail(response);
+        }
+      });
   }
 
   createRepo(name, description, homepage, privacy) {
@@ -28,6 +39,7 @@ class CreateRepoActions {
       });
   }
 
+
 }
 
-export default alt.createActions(CreateRepoActions);
+export default alt.createActions(ReposActions);
