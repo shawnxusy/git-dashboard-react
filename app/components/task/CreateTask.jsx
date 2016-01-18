@@ -26,6 +26,8 @@ export default class CreateTask extends React.Component {
 
 
   componentWillUnmount() {
+    CreateTaskActions.clearTask();
+    this.props.isDone();
     CreateTaskStore.unlisten(this.onChange);
   }
 

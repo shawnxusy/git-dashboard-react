@@ -10,7 +10,8 @@ class CreateTaskActions {
       'updateName',
       'updateDescription',
       'updateStart',
-      'updateDuration'
+      'updateDuration',
+      'clearTask'
     );
   }
 

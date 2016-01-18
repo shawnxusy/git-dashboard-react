@@ -6,6 +6,7 @@ import RepoActions from 'actions/repo/RepoActions';
 import RepoBranchList from 'components/repo/RepoBranchList';
 import CreateBranch from 'components/repo/CreateBranch';
 import RepoIssueList from 'components/repo/RepoIssueList';
+import CreateIssue from 'components/repo/CreateIssue';
 
 export default class RepoContainer extends React.Component {
   constructor(props) {
@@ -22,6 +23,12 @@ export default class RepoContainer extends React.Component {
   }
 
   componentWillUnmount() {
+    if (this.state.createBranch) {
+      this.toggleCreateBranch();
+    }
+    if (this.state.createIssue) {
+      this.toggleCreateIssue();
+    }
     RepoStore.unlisten(this.onChange);
   }
 
@@ -31,6 +38,10 @@ export default class RepoContainer extends React.Component {
 
   toggleCreateBranch = () => {
     RepoActions.toggleCreateBranch();
+  }
+
+  toggleCreateIssue = () => {
+    RepoActions.toggleCreateIssue();
   }
 
   render() {
@@ -50,6 +61,10 @@ export default class RepoContainer extends React.Component {
         </div>
         <div>
           <h4 className="text-center">A list of repo issues</h4>
+          <a onClick={this.toggleCreateIssue}>Create new issue</a>
+          <div className={this.state.createIssue ? '' : 'no-display'}>
+            <CreateIssue newIssue={this.state.newIssue} isDone={this.toggleCreateIssue} issues={this.state.issues} repoName={this.state.repo.name} />
+          </div>
           <RepoIssueList issues={this.state.issues} repoName={this.state.repo.name} />
         </div>
       </div>

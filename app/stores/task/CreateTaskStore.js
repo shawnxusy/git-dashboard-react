@@ -45,6 +45,10 @@ class CreateTaskStore {
     this.duration = event.target.value;
   }
 
+  onClearTask() {
+    this.bootstrap();
+  }
+
 }
 
 export default alt.createStore(CreateTaskStore);

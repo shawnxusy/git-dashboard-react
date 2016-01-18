@@ -10,14 +10,27 @@ class RepoStore {
     this.repo = {};
     this.branches = [];
     this.issues = [];
-    this.newBranch = {
-      name: "",
-      branchFrom: ""
-    };
+    this.bootstrapBranch();
     this.createBranch = false;
+    this.bootstrapIssue();
+    this.createIssue = false;
   }
 
   static displayName = 'RepoStore';
+
+  bootstrapBranch() {
+    this.newBranch = {
+      name: "",
+      branchFrom: "master"
+    };
+  }
+
+  bootstrapIssue() {
+    this.newIssue = {
+      title: "",
+      body: ""
+    };
+  }
 
   onGetRepoSuccess(data) {
     this.repo = data;
@@ -41,8 +54,7 @@ class RepoStore {
     this.branches.unshift(branch); // Optimistically bring it to the front
 
     // Refresh the input boxes
-    this.newBranch.name = "";
-    this.newBranch.branchFrom = "";
+    this.bootstrapBranch();
   };
 
   onCreateBranchFail(errorMessage) {
@@ -71,7 +83,18 @@ class RepoStore {
     console.log(errorMessage);
   }
 
-  onUpdateName(event) {
+  onCreateIssueSuccess(issue) {
+    this.issues.unshift(issue);
+
+    // Refresh the input boxes
+    this.bootstrapIssue();
+  }
+
+  onCreateIssueFail(errorMessage) {
+    console.log(errorMessage);
+  }
+
+  onUpdateBranchName(event) {
     this.newBranch.name = event.target.value;
   }
 
@@ -79,8 +102,27 @@ class RepoStore {
     this.newBranch.branchFrom = event.target.value;
   }
 
+  onUpdateIssueTitle(event) {
+    this.newIssue.title = event.target.value;
+  }
+
+  onUpdateIssueBody(event) {
+    this.newIssue.body = event.target.value;
+  }
+
   onToggleCreateBranch() {
+    if (this.createBranch) {
+      this.bootstrapBranch();
+    }
     this.createBranch = !this.createBranch;
+  }
+
+  onToggleCreateIssue() {
+    // when closing the creating issue box
+    if (this.createIssue) {
+      this.bootstrapIssue();
+    }
+    this.createIssue = !this.createIssue;
   }
 
   onToggleCreateTask(data) {

@@ -20,7 +20,7 @@ export default class CreateBranch extends React.Component {
           <div className="form-group">
             <label className="control-label">Branch Name</label>
             <input type="text" className="form-control" ref="nameTextField" value={this.props.newBranch.name}
-                   onChange={RepoActions.updateName} autoFocus/>
+                   onChange={RepoActions.updateBranchName} autoFocus/>
           </div>
           <div className="form-group">
             <label className="control-label">Branch from:</label>
@@ -40,6 +40,7 @@ export default class CreateBranch extends React.Component {
 
     let name = this.props.newBranch.name.trim();
     let branchFrom = this.props.newBranch.branchFrom;
+    console.log(branchFrom);
 
     if (!name) {
       this.refs.nameTextField.focus();

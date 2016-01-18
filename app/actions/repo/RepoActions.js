@@ -13,10 +13,15 @@ class RepoActions {
       'createBranchFail',
       'getIssuesSuccess',
       'getIssuesFail',
+      'createIssueSuccess',
+      'createIssueFail',
       'toggleCreateTask',
       'toggleCreateBranch',
-      'updateName',
-      'updateBranchFrom'
+      'toggleCreateIssue',
+      'updateBranchName',
+      'updateBranchFrom',
+      'updateIssueBody',
+      'updateIssueTitle'
     );
   }
 
@@ -60,6 +65,17 @@ class RepoActions {
           this.actions.getIssuesSuccess(response);
         } else {
           this.actions.getIssuesFail(response);
+        }
+      });
+  }
+
+  createIssue(title, body, repoName) {
+    RepoWebAPIUtils.createIssue(title, body, repoName)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.createIssueSuccess(response);
+        } else {
+          this.actions.createIssueFail(response);
         }
       });
   }

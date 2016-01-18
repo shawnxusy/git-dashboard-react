@@ -55,6 +55,14 @@ const utils = {
       url: '/api/issues/' + repoName,
       type: 'GET'
     });
+  },
+
+  createIssue: (title, body, repoName) => {
+    return $.ajax({
+      url: '/api/' + repoName + '/issue',
+      type: 'POST',
+      data: {title: title, body: body}
+    });
   }
 
 };

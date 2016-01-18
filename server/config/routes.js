@@ -45,7 +45,6 @@ module.exports = function(app, passport) {
       failureRedirect: '/login'
     }));
 
-
   // github auth
   app.get('/auth/github', passport.authenticate('github', { scope: [ 'user', 'repo', 'public_repo', 'delete_repo' ] }),
     function(req, res) {
@@ -66,7 +65,7 @@ module.exports = function(app, passport) {
   app.get('/api/repos', function(req, res, next) {
     var username = req.params.username;
     var reposLookupPack = {
-      url: 'https://api.github.com/user/repos?affiliation=owner,collaborator', // We only want owner and collaborator repos, not organization ones
+      url: 'https://api.github.com/user/repos?affiliation=owner&visibility=public', // We only want owner and collaborator repos, not organization ones
       headers: {
         'User-Agent': 'S.X Dashboard',
         'Authorization': 'token ' + req.user.token
@@ -182,7 +181,7 @@ module.exports = function(app, passport) {
   });
 
   /**
-   * POST /api/branch
+   * POST /api/:repoName/branch
    * Create a new branch
    */
   app.post('/api/:repoName/branch', function(req, res, next) {
@@ -225,6 +224,33 @@ module.exports = function(app, passport) {
     rp(issuesLookupPack)
       .then(function(issues) {
         res.send(issues);
+      })
+      .catch(function(err) {
+        return next(err);
+      });
+  });
+
+  /**
+   * POST /api/:repoName/issue
+   * Create a new issue
+   */
+  app.post('/api/:repoName/issue', function(req, res, next) {
+    var repoName = req.params.repoName;
+    var issueCreatePack = {
+      method: 'POST',
+      url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + '/issues',
+      headers: {
+        'User-Agent': 'S.X Dashboard',
+        'Authorization': 'token ' + req.user.token,
+        'Content-type': 'application/json',
+      },
+      body: req.body,
+      json: true
+    };
+
+    rp(issueCreatePack)
+      .then(function(response) {
+        res.send(response);
       })
       .catch(function(err) {
         return next(err);
