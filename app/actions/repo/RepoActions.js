@@ -11,7 +11,10 @@ class RepoActions {
       'getBranchesFail',
       'getIssuesSuccess',
       'getIssuesFail',
-      'toggleCreateTask'
+      'toggleCreateTask',
+      'toggleCreateBranch',
+      'updateName',
+      'updateBranchFrom'
     );
   }
 

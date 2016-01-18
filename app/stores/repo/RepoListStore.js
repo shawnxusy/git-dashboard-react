@@ -13,13 +13,13 @@ class RepoListStore {
       homepage: "",
       privacy: "public"
     };
+    this.createRepo = false;
   }
 
   static displayName = 'ReposStore';
 
   onGetReposSuccess(data) {
     this.repos = data;
-    this.emitChange();
   }
 
   onGetReposFail(errorMessage) {
@@ -34,8 +34,6 @@ class RepoListStore {
     this.newRepo.description = "";
     this.newRepo.homepage = "";
     this.newRepo.privacy = "public";
-
-    this.emitChange();
   }
 
   onCreateGetRepoFail(errorMessage) {
@@ -44,22 +42,22 @@ class RepoListStore {
 
   onUpdateName(event) {
     this.newRepo.name = event.target.value;
-    this.emitChange();
   }
 
   onUpdateDescription(event) {
     this.newRepo.description = event.target.value;
-    this.emitChange();
   }
 
   onUpdateHomepage(event) {
     this.newRepo.homepage = event.target.value;
-    this.emitChange();
   }
 
   onUpdatePrivacy(event) {
     this.newRepo.privacy = event.target.value;
-    this.emitChange();
+  }
+
+  onToggleCreateRepo() {
+    this.createRepo = !this.createRepo;
   }
 }
 

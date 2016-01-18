@@ -58,6 +58,7 @@ export default class CreateRepo extends React.Component {
 
     if (name && description) {
       RepoListActions.createRepo(name, description, homepage, privacy);
+      this.props.isDone();
     }
   }
 }

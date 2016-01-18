@@ -12,7 +12,8 @@ class RepoListActions {
       'updateName',
       'updateDescription',
       'updateHomepage',
-      'updatePrivacy'
+      'updatePrivacy',
+      'toggleCreateRepo'
     );
   }
 

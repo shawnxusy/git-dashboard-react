@@ -29,6 +29,10 @@ export default class RepoContainer extends React.Component {
     this.setState(state);
   }
 
+  toggleCreateBranch = () => {
+    RepoActions.toggleCreateBranch();
+  }
+
   render() {
     return (
       <div>
@@ -38,12 +42,15 @@ export default class RepoContainer extends React.Component {
         </div>
         <div>
           <h4 className="text-center">A list of repo branches</h4>
-          <CreateBranch newBranch={this.state.newBranch} />
-          <RepoBranchList branches={this.state.branches} />
+          <a onClick={this.toggleCreateBranch}>Create new branch</a>
+          <div className={this.state.createBranch ? '' : 'no-display'}>
+            <CreateBranch newBranch={this.state.newBranch} isDone={this.toggleCreateBranch} branches={this.state.branches} />
+          </div>
+          <RepoBranchList branches={this.state.branches} repoName={this.state.repo.name}/>
         </div>
         <div>
           <h4 className="text-center">A list of repo issues</h4>
-          <RepoIssueList issues={this.state.issues} />
+          <RepoIssueList issues={this.state.issues} repoName={this.state.repo.name} />
         </div>
       </div>
     );

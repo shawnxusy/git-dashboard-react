@@ -9,7 +9,7 @@ export default class RepoBranchList extends React.Component {
     let branchNodes = this.props.branches.map((branch) => {
       return (
         <div key={branch.commit.sha}>
-          <RepoBranch branch={branch} />
+          <RepoBranch branch={branch} repoName={this.props.repoName} />
         </div>
       );
     });

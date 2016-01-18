@@ -10,6 +10,11 @@ class RepoStore {
     this.repo = {};
     this.branches = [];
     this.issues = [];
+    this.newBranch = {
+      name: "",
+      branchFrom: ""
+    };
+    this.createBranch = false;
   }
 
   static displayName = 'RepoStore';
@@ -26,6 +31,9 @@ class RepoStore {
     this.branches = data;
     _.each(this.branches, (branch) => {
       branch.taskBox = false;
+    });
+    _.each(this.issues, (issue) => {
+      issue.taskBox = false;
     })
   }
 
@@ -41,11 +49,32 @@ class RepoStore {
     console.log(errorMessage);
   }
 
-  onToggleCreateTask(sha) {
-    let targetBranch = _.find(this.branches, function(branch) {
-      return branch.commit.sha === sha;
-    })
-    targetBranch.taskBox = !targetBranch.taskBox;
+  onUpdateName(event) {
+    this.newBranch.name = event.target.value;
+  }
+
+  onUpdateBranchFrom(event) {
+    this.newBranch.branchFrom = event.target.value;
+  }
+
+  onToggleCreateBranch() {
+    this.createBranch = !this.createBranch;
+  }
+
+  onToggleCreateTask(data) {
+    // Get the branch and toggle its taskBox
+    if (data.type === "branch") {
+      let targetBranch = _.find(this.branches, function(branch) {
+        return branch.commit.sha === data.id;
+      })
+      targetBranch.taskBox = !targetBranch.taskBox;
+    } else {
+      // type === "issue"
+      let targetIssue = _.find(this.issues, function(issue) {
+        return issue.id === data.id;
+      })
+      targetIssue.taskBox = !targetIssue.taskBox;
+    }
   }
 
 }

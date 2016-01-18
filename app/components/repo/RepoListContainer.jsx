@@ -26,11 +26,18 @@ export default class RepoListContainer extends React.Component {
     this.setState(state);
   }
 
+  toggleCreateRepo = () => {
+    RepoListActions.toggleCreateRepo();
+  }
+
   render() {
     return (
       <div>
         <h3 className="text-center">Here is a list of your repos!</h3>
-        <CreateRepo newRepo={this.state.newRepo} />
+        <a onClick={this.toggleCreateRepo}>Create new repo</a>
+        <div className={this.state.createRepo ? '' : 'no-display'}>
+          <CreateRepo newRepo={this.state.newRepo} isDone={this.toggleCreateRepo} />
+        </div>
         <RepoList repos={this.state.repos} />
       </div>
     );

@@ -1,14 +1,16 @@
 /**
  * Routes for express app
  */
-var topics = require('../controllers/topics');
 var express = require('express');
-var users = require('../controllers/users');
 var mongoose = require('mongoose');
 var rp = require('request-promise');
 var _ = require('lodash');
+
 var Topic = mongoose.model('Topic');
 var Task = mongoose.model('Task');
+
+var users = require('../controllers/users');
+var topics = require('../controllers/topics');
 var Header = require('../../public/assets/header.server');
 var App = require('../../public/assets/app.server');
 var secrets = require('./secrets');
@@ -200,6 +202,31 @@ module.exports = function(app, passport) {
       .catch(function(err) {
         return next(err);
       });
+  });
+
+  /**
+   * POST /api/task
+   * Create a new task
+   */
+  app.post('/api/task', function(req, res, next) {
+    Task.findOne({id: req.body.id}, function(err, existingTask) {
+        if (existingTask) {
+          return next(err);
+        } else {
+          var task = new Task();
+          task.id = req.user.id + req.body.id; //user id and timestamp
+          task.name = req.body.name;
+          task.repoName = req.body.repoName;
+          task.branch = req.body.branch;
+          task.issue = req.body.issue;
+          task.start = req.body.start;
+          task.duration = req.body.duration;
+          task.user = req.user.id;
+          task.save(function(err) {
+            res.send(task);
+          });
+        }
+    });
   });
 
 

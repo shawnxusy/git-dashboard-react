@@ -1,7 +1,7 @@
 /* jshint esnext:true */
 
 import React from 'react';
-import {Link} from 'react-router';
+import RepoIssue from 'components/repo/RepoIssue';
 
 export default class RepoIssueList extends React.Component {
 
@@ -9,7 +9,7 @@ export default class RepoIssueList extends React.Component {
     let issueNodes = this.props.issues.map((issue) => {
       return (
         <div key={issue.id}>
-            <div>Title: {issue.title} Body: {issue.body}</div>
+          <RepoIssue issue={issue} repoName={this.props.repoName} />
         </div>
       );
     });

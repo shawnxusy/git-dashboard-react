@@ -64,6 +64,7 @@
     "passport-local": "^1.0.0",
     "q": "^1.4.1",
     "react": "^0.14.2",
+    "react-datepicker": "^0.18.0",
     "react-dom": "^0.14.2",
     "react-helmet": "^1.0.1",
     "react-router": "1.0.0",
