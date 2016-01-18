@@ -258,6 +258,20 @@ module.exports = function(app, passport) {
   });
 
   /**
+   * GET /api/tasks
+   * Get all the tasks
+   */
+  app.get('/api/tasks', function(req, res, next) {
+    Task.find({user: req.user.id}, function(err, tasks) {
+      if (err) {
+        return next(err);
+      } else {
+        res.send(tasks);
+      }
+    });
+  });
+
+  /**
    * POST /api/task
    * Create a new task
    */

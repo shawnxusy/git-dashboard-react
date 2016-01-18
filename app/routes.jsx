@@ -12,6 +12,7 @@ import Dashboard from 'components/Dashboard';
 import Home from 'components/Home';
 import RepoContainer from 'components/repo/RepoContainer';
 import RepoListContainer from 'components/repo/RepoListContainer';
+import TaskListContainer from 'components/task/TaskListContainer';
 
 import UserStore from 'stores/UserStore';
 
@@ -26,6 +27,7 @@ export default (
     <Route path="/" component={Home} onEnter={requireAuth}>
       <IndexRoute component={RepoListContainer} />
       <Route path="repo/:name" component={RepoContainer} />
+      <Route path="task" component={TaskListContainer} />
     </Route>
     <Route path="login" component={Login} />
     <Route path="logout" component={Logout} />
