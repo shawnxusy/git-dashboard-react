@@ -6,10 +6,10 @@ import RepoIssue from 'components/repo/RepoIssue';
 export default class RepoIssueList extends React.Component {
 
   render() {
-    let issueNodes = this.props.issues.map((issue) => {
+    let issueNodes = this.props.issues.map((issue, index) => {
       return (
-        <div key={issue.id}>
-          <RepoIssue issue={issue} repoName={this.props.repoName} />
+        <div key={index}>
+          <RepoIssue issue={issue} repoName={this.props.repoName} idx={index} />
         </div>
       );
     });

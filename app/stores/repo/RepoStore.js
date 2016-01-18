@@ -27,6 +27,28 @@ class RepoStore {
     console.log(errorMessage);
   }
 
+  onCreateBranchSuccess(newBranch) {
+    // Need to convert received branch to our data branch data type
+    let branch = {
+      commit: {
+        sha: newBranch.object.sha,
+        url: newBranch.object.url
+      },
+      name: newBranch.ref.slice(11), // Remove 'refs/heads/' to get the branch name
+      taskBox: false
+    };
+
+    this.branches.unshift(branch); // Optimistically bring it to the front
+
+    // Refresh the input boxes
+    this.newBranch.name = "";
+    this.newBranch.branchFrom = "";
+  };
+
+  onCreateBranchFail(errorMessage) {
+    console.log(errorMessage);
+  }
+
   onGetBranchesSuccess(data) {
     this.branches = data;
     _.each(this.branches, (branch) => {
@@ -64,16 +86,10 @@ class RepoStore {
   onToggleCreateTask(data) {
     // Get the branch and toggle its taskBox
     if (data.type === "branch") {
-      let targetBranch = _.find(this.branches, function(branch) {
-        return branch.commit.sha === data.id;
-      })
-      targetBranch.taskBox = !targetBranch.taskBox;
+      this.branches[data.id].taskBox = !this.branches[data.id].taskBox;
     } else {
       // type === "issue"
-      let targetIssue = _.find(this.issues, function(issue) {
-        return issue.id === data.id;
-      })
-      targetIssue.taskBox = !targetIssue.taskBox;
+      this.issues[data.id].taskBox = !this.issues[data.id].taskBox;
     }
   }
 

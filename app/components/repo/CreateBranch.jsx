@@ -1,14 +1,16 @@
 /* jshint esnext:true */
 
 import React from 'react';
+import _ from 'lodash';
+
 import RepoActions from 'actions/repo/RepoActions';
 
 export default class CreateBranch extends React.Component {
 
   render() {
-    let branchOptions = this.props.branches.map((branch) => {
+    let branchOptions = this.props.branches.map((branch, index) => {
       return (
-        <option value={branch.name} key={branch.commit.sha}>{branch.name}</option>
+        <option value={branch.name} key={index}>{branch.name}</option>
       );
     });
 
@@ -46,7 +48,13 @@ export default class CreateBranch extends React.Component {
     }
 
     if (name && branchFrom) {
-      console.log(branchFrom);
+      let sha = _.find(this.props.branches, function(branch) {
+        return branch.name === branchFrom;
+      }).commit.sha;
+
+      name = "refs/heads/" + name; // as required by git post ref API
+
+      RepoActions.createBranch(name, sha, this.props.repoName);
       this.props.isDone();
     }
   }

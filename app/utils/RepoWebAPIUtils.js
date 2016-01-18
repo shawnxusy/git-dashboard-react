@@ -42,6 +42,14 @@ const utils = {
     });
   },
 
+  createBranch: (name, branchFrom, repoName) => {
+    return $.ajax({
+      url: '/api/' + repoName + '/branch',
+      type: 'POST',
+      data: {ref: name, sha: branchFrom}
+    });
+  },
+
   getIssues: (repoName) => {
     return $.ajax({
       url: '/api/issues/' + repoName,

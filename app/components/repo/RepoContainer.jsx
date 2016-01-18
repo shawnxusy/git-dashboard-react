@@ -44,7 +44,7 @@ export default class RepoContainer extends React.Component {
           <h4 className="text-center">A list of repo branches</h4>
           <a onClick={this.toggleCreateBranch}>Create new branch</a>
           <div className={this.state.createBranch ? '' : 'no-display'}>
-            <CreateBranch newBranch={this.state.newBranch} isDone={this.toggleCreateBranch} branches={this.state.branches} />
+            <CreateBranch newBranch={this.state.newBranch} isDone={this.toggleCreateBranch} branches={this.state.branches} repoName={this.state.repo.name} />
           </div>
           <RepoBranchList branches={this.state.branches} repoName={this.state.repo.name}/>
         </div>

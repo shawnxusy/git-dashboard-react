@@ -182,6 +182,33 @@ module.exports = function(app, passport) {
   });
 
   /**
+   * POST /api/branch
+   * Create a new branch
+   */
+  app.post('/api/:repoName/branch', function(req, res, next) {
+    var repoName = req.params.repoName;
+    var branchCreatePack = {
+      method: 'POST',
+      url: 'https://api.github.com/repos/' + req.user.username + '/' + repoName + '/git/refs',
+      headers: {
+        'User-Agent': 'S.X Dashboard',
+        'Authorization': 'token ' + req.user.token,
+        'Content-type': 'application/json',
+      },
+      body: req.body,
+      json: true
+    };
+
+    rp(branchCreatePack)
+      .then(function(response) {
+        res.send(response);
+      })
+      .catch(function(err) {
+        return next(err);
+      });
+  });
+
+  /**
    * GET /api/issues/:repoName
    * Returns a list of issues for repo
    */

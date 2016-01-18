@@ -9,14 +9,14 @@ export default class RepoBranch extends React.Component {
   toggleCreateTask = () => {
     let data = {
       type: "branch",
-      id: this.props.branch.commit.sha
+      id: this.props.idx
     }
     RepoActions.toggleCreateTask(data);
   }
 
   render() {
     return (
-      <div key={this.props.branch.commit.sha}>
+      <div>
         {this.props.branch.name}
         <a onClick={this.toggleCreateTask}>Create task</a>
         <span className={this.props.branch.taskBox ? '': 'no-display'}><CreateTask isDone={this.toggleCreateTask} branchName={this.props.branch.name} repoName={this.props.repoName} /></span>

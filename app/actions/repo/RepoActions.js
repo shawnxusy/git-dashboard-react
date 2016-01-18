@@ -9,6 +9,8 @@ class RepoActions {
       'getRepoFail',
       'getBranchesSuccess',
       'getBranchesFail',
+      'createBranchSuccess',
+      'createBranchFail',
       'getIssuesSuccess',
       'getIssuesFail',
       'toggleCreateTask',
@@ -36,6 +38,17 @@ class RepoActions {
           this.actions.getBranchesSuccess(response);
         } else {
           this.actions.getBranchesFail(response);
+        }
+      });
+  }
+
+  createBranch(name, branchFrom, repoName) {
+    RepoWebAPIUtils.createBranch(name, branchFrom, repoName)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.createBranchSuccess(response);
+        } else {
+          this.actions.createBranchFail(response);
         }
       });
   }
