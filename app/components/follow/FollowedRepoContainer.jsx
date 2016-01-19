@@ -1,16 +1,17 @@
+/* jshint esnext: true */
+
 import React from 'react';
+
+import FollowedRepoSearch from 'components/follow/FollowedRepoSearch';
 
 export default class FollowedRepoList extends React.Component {
 
   render() {
     return (
       <div>
-        <h3>A list of repos of you are following</h3>
+        <FollowedRepoSearch />
       </div>
+      
     );
   }
 }
-
-FollowedRepoList.propTypes = {
-
-};

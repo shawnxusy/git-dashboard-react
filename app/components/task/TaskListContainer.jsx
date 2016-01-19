@@ -23,7 +23,7 @@ export default class TaskListContainer extends React.Component {
     TaskListStore.listen(this.onChange);
     TaskListActions.getTasks();
 
-    ReactDOM.render(React.createElement(ReactHighcharts, { config: this.state.config }), document.getElementById('test'));
+    this.drawGanttChart();
   }
 
   componentWillUnmount() {
@@ -32,6 +32,17 @@ export default class TaskListContainer extends React.Component {
 
   onChange(state) {
     this.setState(state);
+  }
+
+  drawGanttChart() {
+    require('../../utils/GanttChartConfigs')(ReactHighcharts.Highcharts);
+    // Defer the drawing (should do better waiting with promises)
+    var that = this;
+    setTimeout(function(){
+      if (that.state.tasks.length > 0) {
+        ReactDOM.render(React.createElement(ReactHighcharts, { config: that.state.chartConfigs }), document.getElementById('test'));
+      }
+    }, 500);
   }
 
   render() {

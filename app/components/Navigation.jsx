@@ -20,8 +20,6 @@ export default class Navigation extends React.Component {
           ) : (
             <Link className={styles.navigation__item} to="/login">Log in</Link>
           )}
-          <Link className={styles.navigation__item} to="/dashboard">Dashboard</Link>
-          <Link to="/about" className={styles.navigation__item} activeClassName={styles['navigation__item--active']}>About</Link>
       </nav>
     );
   }

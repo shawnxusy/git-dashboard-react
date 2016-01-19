@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import FollowedRepoList from 'components/FollowedRepoList';
+import FollowedRepoContainer from 'components/follow/FollowedRepoContainer';
 
 export default class Home extends React.Component {
 
@@ -10,7 +10,7 @@ export default class Home extends React.Component {
     return (
       <div>
         <div className="col-xs-6">
-          <FollowedRepoList />
+          <FollowedRepoContainer />
         </div>
         <div className="col-xs-6">
           <Link to="/">Repos</Link>
