@@ -1,0 +1,29 @@
+/**
+ * Factories
+ */
+
+.no-display {
+	display: none;
+}
+
+.center {
+	text-align: center;
+}
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin anchor($color, $hover-color) {
+	color: $color;
+	&:hover {
+		color: $hover-color;
+		text-decoration: none;
+	}
+	&:visited {
+		color: $color;
+		text-decoration: none;
+	}
+}

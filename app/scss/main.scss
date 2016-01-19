@@ -1,11 +1,18 @@
 /*
 Style Guide Lines. Remove if you prefer your own library
  */
+ @import 'components/variables';
+ @import 'components/factories';
+ @import 'components/nav';
+ @import 'components/login';
+ @import 'components/logout';
+ @import 'components/profile';
+
 body {
 	font-family: 'Raleway', Helvetica, Arial, sans-serif;
 	font-weight: normal;
   margin: 0;
-	color: #eaeeef;
+	color: $main-white;
 	background: #136a8a;
 	background: linear-gradient(to left, #136a8a, #267871);
 }

@@ -59,11 +59,34 @@ module.exports = function(app, passport) {
     }));
 
   /**
+   * GET /api/profile
+   * Returns user's profile
+   */
+  app.get('/api/profile', function(req, res, next) {
+    var username = req.user.username;
+    var profileLookupPack = {
+      url: 'https://api.github.com/user',
+      headers: {
+        'User-Agent': 'S.X Dashboard',
+        'Authorization': 'token ' + req.user.token
+      },
+      json: true
+    };
+
+    rp(profileLookupPack)
+      .then(function(profile) {
+        res.send(profile);
+      })
+      .catch(function(err) {
+        return next(err);
+      });
+  });
+
+  /**
    * GET /api/repos
    * Returns a list of repos for user name
    */
   app.get('/api/repos', function(req, res, next) {
-    var username = req.params.username;
     var reposLookupPack = {
       url: 'https://api.github.com/user/repos?affiliation=owner&visibility=public', // We only want owner and collaborator repos, not organization ones
       headers: {

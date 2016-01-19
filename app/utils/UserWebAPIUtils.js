@@ -1,3 +1,4 @@
+/* jshint esnext: true */
 import $ from 'jquery';
 
 const utils = {
@@ -34,6 +35,13 @@ const utils = {
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data)
+    });
+  },
+
+  getProfile: () => {
+    return $.ajax({
+      url: '/api/profile',
+      type: 'GET'
     });
   }
 

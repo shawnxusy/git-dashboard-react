@@ -1,0 +1,22 @@
+/**
+ * Styles for navigation bar
+ */
+
+nav {
+  height: 80px;
+  font-size: 1.2em;
+  padding: 0 10%;
+
+  a {
+    position: relative;
+    top: 30px;
+    margin: 0 20px;
+    @include anchor($main-white, $hover-white);
+  }
+
+  .nav-github-icon {
+    position: relative;
+    top: 30px;
+    margin-right: 20px;
+  }
+}

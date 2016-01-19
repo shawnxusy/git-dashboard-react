@@ -9,11 +9,16 @@ export default class Navigation extends React.Component {
     UserActions.logout();
   }
 
+  isAuthenticated() {
+    return this.props.UserStore.user.get('authenticated');
+  }
+
   render() {
     return (
       <nav role="navigation">
-          <Link to="/" className='' activeClassName=''>Ninja Ocean</Link>
-          { this.props.UserStore.user.get('authenticated') ? (
+          <i className="fa fa-github-alt nav-github-icon"></i>
+          <Link to="/" className='' activeClassName=''>Dashboard</Link>
+          { this.isAuthenticated() ? (
             <Link onClick={this.onLogout} to="/logout">Logout</Link>
           ) : (
             <Link to="/login">Log in</Link>

@@ -5,6 +5,8 @@ import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 
+const githubImage = require('images/github-image.png');
+
 export default class Login extends React.Component {
   /*
    * This replaces getInitialState. Likewise getDefaultProps and propTypes are just
@@ -48,12 +50,10 @@ export default class Login extends React.Component {
         renderedResult = (<h1>Waiting ...</h1>);
       } else {
         renderedResult = (
-          <div>
-            <h1>Login with Github</h1>
-            <fieldset>
-              <a href="/auth/github">Login with Github</a>
-            </fieldset>
-          </div>
+          <a href="/auth/github" className="login center">
+            <h3>Login with Github</h3>
+            <img src={githubImage} id="login-github-image" />
+          </a>
         );
       }
     }

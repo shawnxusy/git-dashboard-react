@@ -11,22 +11,17 @@
  */
 
 // Import all your needed files first (webpack will grab the url)
-import chromecon from 'file!images/chrome-ninja192-precomposed.png';
-import applecon from 'file!images/apple-ninja152-precomposed.png';
-import mscon from 'file!images/ms-ninja144-precomposed.png';
 import favicon from 'file!images/favicon.png';
 
 const config = {
   link: [
     // Add to homescreen for Chrome on Android
     { "rel": "icon", "href": favicon },
-    { "rel": "icon", "sizes": "192x192", "href": chromecon },
-    // Add to homescreen for Safari on IOS
-    { "rel": "apple-touch-icon", "sizes": "152x152", applecon },
     { "rel": "stylesheet", "href": "https://fonts.googleapis.com/css?family=Roboto+Condensed", "type": "text/css" },
     { "rel": "stylesheet", "href": "https://fonts.googleapis.com/css?family=Raleway:200,400,600", "type": "text/css" },
     { "rel": "stylesheet", "href": "/assets/styles/main.css" },
-    { "rel": "stylesheet", "href": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", "type": "text/css", "integrity": "sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", "crossorigin": "anonymous"}
+    { "rel": "stylesheet", "href": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", "type": "text/css", "integrity": "sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", "crossorigin": "anonymous"},
+    { "rel": "stylesheet", "href": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", "type": "text/css"}
 
     // SEO: If your mobile URL is different from the desktop URL,
     // add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones
@@ -49,7 +44,6 @@ const config = {
     { "name": "apple-mobile-web-app-status-bar-style", "content": "black" },
     { "name": "apple-mobile-web-app-title", "content": "React Webpack Node" },
     // Tile icon for Win8 (144x144 + tile color)
-    { "name": "msapplication-TileImage", "content": mscon },
     { "name": "msapplication-TileColor", "content": "#3372DF" }
   ]
 };

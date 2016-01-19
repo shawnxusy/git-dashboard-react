@@ -1,0 +1,39 @@
+/**
+ * User profile
+ */
+
+.profile {
+  height: 200px;
+  padding: 0 5%;
+
+  .avatar-container {
+    width: 128px;
+    height: 128px;
+    margin-right: 20px;
+    background-color: $background-opa;
+    border-radius: 50%;
+
+    #user-avatar {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  .username {
+    h3 {
+      margin-top: 50px;
+    }
+  }
+
+  .userstats {
+    padding-top: 10px;
+
+    .fa {
+      margin-right: 5px;
+    }
+
+    a {
+      @include anchor($main-white, $hover-white);
+    }
+  }
+}
