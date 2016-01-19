@@ -3,8 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import CreateTaskStore from 'stores/task/CreateTaskStore';
-import CreateTaskActions from 'actions/task/CreateTaskActions';
+import RepoActions from 'actions/repo/RepoActions';
 
 // If it's server side rendering, skip the import since Datepicker works only on window
 const isBrowser = typeof window !== 'undefined';
@@ -14,55 +13,99 @@ if (isBrowser) {
 }
 
 export default class CreateTask extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = CreateTaskStore.getState();
-    this.onChange = this.onChange.bind(this);
+  // constructor(props) {
+  //   super(props);
+  //   this.state = CreateTaskStore.getState();
+  //   this.onChange = this.onChange.bind(this);
+  // }
+  //
+  // componentDidMount() {
+  //   CreateTaskStore.listen(this.onChange);
+  // }
+  //
+  // componentWillUnmount() {
+  //   CreateTaskStore.unlisten(this.onChange);
+  // }
+  //
+  // onChange(state) {
+  //   this.setState(state);
+  // }
+
+  updateTaskName = (event) => {
+    let data = {
+      type: this.props.branch ? "branch" : "issue",
+      value:event.target.value,
+      id: this.props.idx
+    };
+    RepoActions.updateTaskName(data);
   }
 
-  componentDidMount() {
-    CreateTaskStore.listen(this.onChange);
+  updateTaskDescription = (event) => {
+    let data = {
+      type: this.props.branch ? "branch" : "issue",
+      value: event.target.value,
+      id: this.props.idx
+    };
+    RepoActions.updateTaskDescription(data);
   }
 
-
-  componentWillUnmount() {
-    CreateTaskActions.clearTask();
-    this.props.isDone();
-    CreateTaskStore.unlisten(this.onChange);
+  updateTaskStart = (date) => {
+    let data = {
+      type: this.props.branch ? "branch" : "issue",
+      value: date,
+      id: this.props.idx
+    }
+    RepoActions.updateTaskStart(data);
   }
 
-  onChange(state) {
-    this.setState(state);
+  updateTaskDuration = (event) => {
+    let data = {
+      type: this.props.branch ? "branch" : "issue",
+      value: event.target.value,
+      id: this.props.idx
+    }
+    RepoActions.updateTaskDuration(data);
   }
 
   render() {
-    let typeName;
-    if (this.props.branchName) {
-      typeName = (<input type="text" className="form-control" ref="branchField" defaultValue={this.props.branchName} disabled/>);
+    let taskName, taskDescription, taskStart, taskDuration, typeName;
+    if (this.props.branch) {
+      taskName = (<input type="text" className="form-control" ref="taskNameField" value={this.props.branch.newTask.name}
+            onChange={this.updateTaskName} placeholder="Task name" autoFocus required/>);
+      taskDescription = (<input type="text" className="form-control" ref="taskDescriptionField" value={this.props.branch.newTask.description}
+            onChange={this.updateTaskDescription} placeholder="Description (optional)"/>);
+      taskStart = (<DatePicker selected={this.props.branch.newTask.start} ref="taskStartField" onChange={this.updateTaskStart} />);
+      taskDuration = (<input type="text" className="form-control" ref="taskDurationField" value={this.props.branch.newTask.duration}
+            onChange={this.updateTaskDuration} placeholder="Duration for this task"/>);
+      typeName = (<input type="text" className="form-control" ref="branchField" defaultValue={this.props.branch.name} disabled/>);
     } else {
-      typeName = (<input type="text" className="form-control" ref="issueField" defaultValue={this.props.issueName} disabled/>);
+      taskName = (<input type="text" className="form-control" ref="taskNameField" value={this.props.issue.newTask.name}
+            onChange={this.updateTaskName} placeholder="Task name" autoFocus required/>);
+      taskDescription = (<input type="text" className="form-control" ref="taskDescriptionField" value={this.props.issue.newTask.description}
+            onChange={this.updateTaskDescription} placeholder="Description (optional)"/>);
+      taskStart = (<DatePicker selected={this.props.issue.newTask.start} ref="taskStartField" onChange={this.updateTaskStart} />);
+      taskDuration = (<input type="text" className="form-control" ref="taskDurationField" value={this.props.issue.newTask.duration}
+            onChange={this.updateTaskDuration} placeholder="Duration for this task"/>);
+      typeName = (<input type="text" className="form-control" ref="issueField" defaultValue={this.props.issue.title} disabled/>);
     }
 
     return (
       <div>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
-            <input type="text" className="form-control" ref="nameTextField" value={this.state.name}
-                  onChange={CreateTaskActions.updateName} placeholder="Task name" autoFocus required/>
+            {taskName}
           </div>
           <div className="form-group">
             {typeName}
           </div>
           <div className="form-group">
-            <input type="text" className="form-control" ref="descriptionTextField" value={this.state.description}
-                  onChange={CreateTaskActions.updateDescription} placeholder="Description (optional)"/>
+            {taskDescription}
           </div>
           <div className="form-group">
-            <DatePicker selected={this.state.start} onChange={CreateTaskActions.updateStart} />
+            {taskStart}
           </div>
           <div className="form-group">
-            <input type="text" className="form-control" ref="durationTextField" value={this.state.duration}
-                  onChange={CreateTaskActions.updateDuration} placeholder="Duration for this task"/>
+            {taskDuration}
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
@@ -72,10 +115,10 @@ export default class CreateTask extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.props.branchName) {
-      CreateTaskActions.createTask(this.state.name, this.props.repoName, ReactDOM.findDOMNode(this.refs.branchField).defaultValue || '', '', this.state.description, this.state.start, this.state.duration);
+    if (this.props.branch) {
+      RepoActions.createTask(this.props.branch.newTask.name, this.props.repoName, this.props.branch.name || '', '', this.props.branch.newTask.description, this.props.branch.newTask.start, this.props.branch.newTask.duration);
     } else {
-      CreateTaskActions.createTask(this.state.name, this.props.repoName, '', ReactDOM.findDOMNode(this.refs.issueField).defaultValue || '', this.state.description, this.state.start, this.state.duration);
+      RepoActions.createTask(this.props.issue.newTask.name, this.props.repoName, '', this.props.issue.title || '', this.props.issue.newTask.description, this.props.issue.newTask.start, this.props.issue.newTask.duration);
     }
     this.props.isDone();
   }

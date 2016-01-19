@@ -19,7 +19,7 @@ export default class RepoIssue extends React.Component {
       <div>
         {this.props.issue.title}
         <a onClick={this.toggleCreateTask}>Create task</a>
-        <span className={this.props.issue.taskBox ? '': 'no-display'}><CreateTask isDone={this.toggleCreateTask} issueName={this.props.issue.title} repoName={this.props.repoName}/></span>
+        <span className={this.props.issue.taskBox ? '': 'no-display'}><CreateTask isDone={this.toggleCreateTask} issue={this.props.issue} repoName={this.props.repoName} idx={this.props.idx} /></span>
       </div>
     );
   }

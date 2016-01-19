@@ -61,22 +61,42 @@ class RepoStore {
     console.log(errorMessage);
   }
 
-  onGetBranchesSuccess(data) {
-    this.branches = data;
+  bootstrapBranchTasks() {
     _.each(this.branches, (branch) => {
       branch.taskBox = false;
+      branch.newTask = {
+        name: "",
+        description: "",
+        start: "",
+        duration: 1
+      }
     });
-    _.each(this.issues, (issue) => {
-      issue.taskBox = false;
-    })
+  }
+
+  onGetBranchesSuccess(data) {
+    this.branches = data;
+    this.bootstrapBranchTasks();
   }
 
   onGetBranchesFail(errorMessage) {
     console.log(errorMessage);
   }
 
+  bootstrapIssueTasks() {
+    _.each(this.issues, (issue) => {
+      issue.taskBox = false;
+      issue.newTask = {
+        name: "",
+        description: "",
+        start: "",
+        duration: 1
+      }
+    })
+  }
+
   onGetIssuesSuccess(data) {
     this.issues = data;
+    this.bootstrapIssueTasks();
   }
 
   onGetIssuesFail(errorMessage) {
@@ -110,6 +130,48 @@ class RepoStore {
     this.newIssue.body = event.target.value;
   }
 
+  onUpdateTaskName(data) {
+    if (data.type === "branch") {
+      this.branches[data.id].newTask.name = data.value;
+    } else {
+      this.issues[data.id].newTask.name = data.value;
+    }
+  }
+
+  onUpdateTaskDescription(data) {
+    if (data.type === "branch") {
+      this.branches[data.id].newTask.description = data.value;
+    } else {
+      this.issues[data.id].newTask.description = data.value;
+    }
+  }
+
+  onUpdateTaskStart(data) {
+    if (data.type === "branch") {
+      this.branches[data.id].newTask.start = data.value;
+    } else {
+      this.issues[data.id].newTask.start = data.value;
+    }
+  }
+
+  onUpdateTaskDuration(data) {
+    if (data.type === "branch") {
+      this.branches[data.id].newTask.duration = data.value;
+    } else {
+      this.issues[data.id].newTask.duration = data.value;
+    }
+  }
+
+  onCreateTaskSuccess(data) {
+    //clear all branch / issue new task field
+    this.bootstrapBranchTasks();
+    this.bootstrapIssueTasks();
+  }
+
+  onCreateTaskFail(errorMessage) {
+    console.log(errorMessage);
+  }
+
   onToggleCreateBranch() {
     if (this.createBranch) {
       this.bootstrapBranch();
@@ -126,7 +188,7 @@ class RepoStore {
   }
 
   onToggleCreateTask(data) {
-    // Get the branch and toggle its taskBox
+    // Get the item and toggle its taskBox
     if (data.type === "branch") {
       this.branches[data.id].taskBox = !this.branches[data.id].taskBox;
     } else {

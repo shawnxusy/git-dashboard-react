@@ -19,7 +19,7 @@ export default class RepoBranch extends React.Component {
       <div>
         {this.props.branch.name}
         <a onClick={this.toggleCreateTask}>Create task</a>
-        <span className={this.props.branch.taskBox ? '': 'no-display'}><CreateTask isDone={this.toggleCreateTask} branchName={this.props.branch.name} repoName={this.props.repoName} /></span>
+        <span className={this.props.branch.taskBox ? '': 'no-display'}><CreateTask isDone={this.toggleCreateTask} branch={this.props.branch} repoName={this.props.repoName} idx={this.props.idx} /></span>
       </div>
     );
   }

@@ -12,7 +12,6 @@ class TaskListStore {
   static displayName = 'TaskListStore';
 
   onGetTasksSuccess(data) {
-    console.log("tasks are: ", data);
     this.tasks = data;
   }
 

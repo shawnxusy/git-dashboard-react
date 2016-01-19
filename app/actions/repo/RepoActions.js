@@ -1,6 +1,7 @@
 /* jshint esnext:true */
 import alt from 'altInstance';
 import RepoWebAPIUtils from 'utils/RepoWebAPIUtils';
+import TaskWebAPIUtils from 'utils/TaskWebAPIUtils';
 
 class RepoActions {
   constructor() {
@@ -21,7 +22,13 @@ class RepoActions {
       'updateBranchName',
       'updateBranchFrom',
       'updateIssueBody',
-      'updateIssueTitle'
+      'updateIssueTitle',
+      'updateTaskName',
+      'updateTaskDescription',
+      'updateTaskStart',
+      'updateTaskDuration',
+      'createTaskSuccess',
+      'createTaskFail'
     );
   }
 
@@ -76,6 +83,17 @@ class RepoActions {
           this.actions.createIssueSuccess(response);
         } else {
           this.actions.createIssueFail(response);
+        }
+      });
+  }
+
+  createTask(name, repoName, branch, issue, description, start, duration) {
+    TaskWebAPIUtils.createTask(name, repoName, branch, issue, description, start, duration)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.createTaskSuccess(response);
+        } else {
+          this.actions.createTaskFail(response);
         }
       });
   }
