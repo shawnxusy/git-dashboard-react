@@ -5,8 +5,6 @@ import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 
-import styles from 'scss/components/_login';
-
 export default class Login extends React.Component {
   /*
    * This replaces getInitialState. Likewise getDefaultProps and propTypes are just
@@ -44,30 +42,30 @@ export default class Login extends React.Component {
   render() {
     let renderedResult;
     if (this.state.user.get('authenticated')) {
-      renderedResult = (<h1 className={styles.login__header}>You are logged in amigo</h1>);
+      renderedResult = (<h1>You are logged in amigo</h1>);
     } else {
       if (this.state.user.get('isWaiting')) {
-        renderedResult = (<h1 className={styles.login__header}>Waiting ...</h1>);
+        renderedResult = (<h1>Waiting ...</h1>);
       } else {
         renderedResult = (
-          <div className={styles.login__container}>
-            <h1 className={styles.login__header}>Email Login Demo</h1>
-            <fieldset className={styles.login__fieldset}>
-                <input className={styles.login__input} type="email" ref="email" placeholder="email" />
-                <input className={styles.login__input} type="password" ref="password" placeholder="password" />
-                <button className={styles.login__button + ' ' + styles['login__button--green']} onClick={this._onLoginSubmit}>Login</button>
-                <p className={styles.login__hint}>Hint: email: example@ninja.com password: ninja</p>
+          <div>
+            <h1>Email Login Demo</h1>
+            <fieldset>
+                <input type="email" ref="email" placeholder="email" />
+                <input type="password" ref="password" placeholder="password" />
+                <button onClick={this._onLoginSubmit}>Login</button>
+                <p >Hint: email: example@ninja.com password: ninja</p>
             </fieldset>
-            <h1 className={styles.login__header}>Google Login Demo</h1>
-            <fieldset className={styles.login__fieldset}>
-              <a className={styles.login__button + ' ' + styles['login__button--green']} href="/auth/github">Login with Github</a>
+            <h1>Google Login Demo</h1>
+            <fieldset>
+              <a href="/auth/github">Login with Github</a>
             </fieldset>
           </div>
         );
       }
     }
     return (
-        <div className={styles.login}>
+        <div>
           {renderedResult}
         </div>
     );
