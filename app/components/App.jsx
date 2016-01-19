@@ -6,7 +6,6 @@ import UserStore from 'stores/UserStore';
 import Navigation from 'components/Navigation';
 
 import 'scss/main';
-import 'scss/components/bootstrap';
 
 /*
  * This component operates as a "Controller-View". It listens for changes in the

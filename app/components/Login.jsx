@@ -49,14 +49,7 @@ export default class Login extends React.Component {
       } else {
         renderedResult = (
           <div>
-            <h1>Email Login Demo</h1>
-            <fieldset>
-                <input type="email" ref="email" placeholder="email" />
-                <input type="password" ref="password" placeholder="password" />
-                <button onClick={this._onLoginSubmit}>Login</button>
-                <p >Hint: email: example@ninja.com password: ninja</p>
-            </fieldset>
-            <h1>Google Login Demo</h1>
+            <h1>Login with Github</h1>
             <fieldset>
               <a href="/auth/github">Login with Github</a>
             </fieldset>

@@ -2,15 +2,14 @@
 Style Guide Lines. Remove if you prefer your own library
  */
 body {
-	font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-  	font-weight: normal;
-    margin: 0;
+	font-family: 'Raleway', Helvetica, Arial, sans-serif;
+	font-weight: normal;
+  margin: 0;
+	color: #eaeeef;
+	background: #136a8a;
+	background: linear-gradient(to left, #136a8a, #267871);
 }
 
 * {
   box-sizing: border-box;
-}
-
-.no-display {
-	display: none;
 }
