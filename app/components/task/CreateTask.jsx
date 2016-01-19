@@ -13,23 +13,6 @@ if (isBrowser) {
 }
 
 export default class CreateTask extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = CreateTaskStore.getState();
-  //   this.onChange = this.onChange.bind(this);
-  // }
-  //
-  // componentDidMount() {
-  //   CreateTaskStore.listen(this.onChange);
-  // }
-  //
-  // componentWillUnmount() {
-  //   CreateTaskStore.unlisten(this.onChange);
-  // }
-  //
-  // onChange(state) {
-  //   this.setState(state);
-  // }
 
   updateTaskName = (event) => {
     let data = {
