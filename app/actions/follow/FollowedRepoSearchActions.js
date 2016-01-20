@@ -8,11 +8,14 @@ class FollowedRepoSearchActions {
   constructor() {
     this.generateActions(
       'searchRepoSuccess',
-      'searchRepoFail'
+      'searchRepoFail',
+      'searchStart',
+      'searchEnd'
     );
   }
 
   search(searchText) {
+    this.actions.searchStart();
     FollowWebAPIUtils.searchRepo(searchText)
       .then((response, textStatus) => {
         console.log(response);

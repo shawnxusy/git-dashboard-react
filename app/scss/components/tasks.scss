@@ -35,7 +35,7 @@
         padding: 20px 5% 15px 5%;
         background-color: $background-opa;
         display: block;
-        
+
         .task-name {
           font-size: 1.1em;
           font-weight: 200;
@@ -43,9 +43,23 @@
           padding-bottom: 5px;
           margin-bottom: 10px;
           border-bottom: 1px dotted $background-opa-more;
+
+          .fa {
+            margin-right: 10px;
+          }
+          .task-icon-branch {
+            color: $cute-red;
+          }
+          .task-icon-issue {
+            color: $cute-yellow;
+          }
         }
 
-        .task-stats {
+        .task-duration {
+          float: right;
+        }
+
+        .task-detail {
           font-size: 0.9em;
           .fa {
             margin-right: 5px;

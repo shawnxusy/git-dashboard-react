@@ -55,8 +55,15 @@ export default class TaskListContainer extends React.Component {
       return (
         <div key={index} className="task-node row">
           <div className="task-wrapper col-sm-8">
-            <div className="task-name">{task.name}</div>
-            <div className="task-stats">{task.duration} hours</div>
+            <div className="task-name">
+              <i className={task.branch ? "fa fa-exchange task-icon-branch" : "fa fa-exclamation-triangle task-icon-issue"}></i>
+              {task.name}
+              <span className="task-duration">{task.duration} hours</span>
+            </div>
+            <div className="task-detail">
+              <div> Repo: {task.repoName} </div>
+              <div>{task.branch ? 'Branch: ' + task.branch : 'Issue: ' + task.issue}</div>
+            </div>
           </div>
           <a onClick={this.deleteTask.bind(this, task.id)} className="delete-task col-sm-3 center">
             <i className="fa fa-times"></i> Delete task

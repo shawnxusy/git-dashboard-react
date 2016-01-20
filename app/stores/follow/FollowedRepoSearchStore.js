@@ -12,17 +12,17 @@ class FollowedRepoSearchStore {
 
   static displayName = 'FollowedRepoSearchStore';
 
-  onSearch() {
-    this.loading = true;
-  }
-
   onSearchRepoSuccess(data) {
     this.loading = false;
-    this.repos = data;
+    this.repos = data.slice(0, 10); //only display top 10
   }
 
   onSearchRepoFail(errorMessage) {
     console.log(errorMessage);
+  }
+
+  onSearchStart() {
+    this.loading = true
   }
 }
 

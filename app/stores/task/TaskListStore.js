@@ -16,31 +16,74 @@ class TaskListStore {
   bootstrapChartConfigs() {
     this.chartConfigs = {
       chart: {
-        type: 'xrange'
+        type: 'xrange',
+        backgroundColor: 'rgba(234, 238, 239, 0.15)',
+        spacingTop: 20,
+        style: {
+          color: "#eaeeef",
+          fontFamily: "'Raleway', Helvetica, Arial, sans-serif;"
+        }
       },
+      colors: ['#e87579', "#eeeb91", '#24acba'],
       title: {
-        text: 'Git tasks gantt chart'
+        text: 'Tasks Gantt Chart',
+        style: {
+          color: "#eaeeef",
+          fontFamily: "'Raleway', Helvetica, Arial, sans-serif;"
+        }
       },
       xAxis: {
-        type: 'datetime'
+        type: 'datetime',
+        gridLineColor: '#eaeeef',
+        lineColor: '#eaeeef',
+        labels: {
+          style: {
+            color: "#eaeeef",
+            fontFamily: "'Raleway', Helvetica, Arial, sans-serif;"
+          }
+        },
+        crosshair: {
+          color: 'rgba(234, 238, 239, 0.2)',
+          dashStyle: "ShortDot",
+          snap: false
+        }
       },
       yAxis: {
         title: '',
         categories: [],
         min: 0,
-        max: 0
+        max: 0,
+        gridLineColor: 'rgba(234, 238, 239, 0.5)',
+        gridLineDashStyle: "ShortDot",
+        labels: {
+          style: {
+            color: "#eaeeef",
+            fontFamily: "'Raleway', Helvetica, Arial, sans-serif;"
+          }
+        }
+      },
+      legend: {
+        itemStyle: {
+          color: '#eaeeef',
+          fontFamily: "'Raleway', Helvetica, Arial, sans-serif;"
+        }
       },
       series: [{
-        name: 'Tasks',
+        name: 'Branches',
         borderRadius: 3,
         pointWidth: 5,
+        borderWidth: 0,
         data: []
       }, {
         name: "Issues",
         borderRadius: 3,
         pointWidth: 5,
+        borderWidth: 0,
         data: []
-      }]
+      }],
+      tooltip: {
+        crosshairs: true
+      }
     };
   }
 

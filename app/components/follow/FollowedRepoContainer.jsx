@@ -8,10 +8,10 @@ export default class FollowedRepoList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="follow">
         <FollowedRepoSearch />
       </div>
-      
+
     );
   }
 }

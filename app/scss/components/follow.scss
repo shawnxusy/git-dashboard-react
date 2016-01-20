@@ -1,0 +1,64 @@
+/**
+ * Follow
+ */
+
+.follow {
+  padding: 0 5%;
+
+  .search {
+    .search-form {
+      input {
+        width: 90%;
+        padding: 20px 5% 15px 5%;
+        background-color: $background-opa;
+        border: 1px solid $main-white;
+        font-size: 1.1em;
+        &::-webkit-input-placeholder {
+          color: $dark-white;
+        }
+      }
+    }
+
+    .search-loading {
+      width: 90%;
+      padding-top: 20px;
+    }
+
+    .search-results {
+      margin: 10px 0 0 -10px;
+
+      .result-node {
+        display: inline-block;
+        float: left;
+        padding: 15px;
+        margin: 10px;
+        background-color: $background-opa-little-more;
+
+        .result-title {
+          .result-name {
+            margin-right: 10px;
+          }
+          .result-language {
+            float: right;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 3px;
+            font-style: italic;
+          }
+        }
+        .result-stats {
+          .result-stars, .result-forks {
+            width: 50%;
+            float: left;
+
+            .fa {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+}
