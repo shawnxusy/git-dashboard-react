@@ -17,7 +17,7 @@ export default class FollowedRepo extends React.Component {
   }
 
   drawCommitChart() {
-    // Defer the drawing (should do better waiting with promises)
+    // Defer the drawing (should do better waiting with promises here)
     let that = this;
     let configs = this.buildConfigs();
     setTimeout(function(){
