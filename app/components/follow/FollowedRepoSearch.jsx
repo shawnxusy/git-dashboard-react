@@ -16,7 +16,7 @@ export default class FollowedRepoSearch extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     FollowedRepoSearchStore.listen(this.onChange);
   }
 
@@ -39,7 +39,7 @@ export default class FollowedRepoSearch extends React.Component {
   renderRepos() {
     return this.state.repos.map((repo, index) => {
       return (
-        <div key={index} className="result-node">
+        <div key={index} className="result-node" onClick={this.addFollow.bind(this, repo.owner.login, repo.name)}>
           <div className="result-title">
             <span className="result-name">{ repo.full_name }</span>
             <span className="result-language">{ repo.language }</span>
@@ -63,6 +63,12 @@ export default class FollowedRepoSearch extends React.Component {
     } else {
       return "";
     }
+  }
+
+  addFollow = (owner, name) => {
+    FollowedRepoSearchActions.addFollow(owner, name);
+    FollowedRepoSearchActions.clearSearch();
+    this.props.isDone();
   }
 
   render() {

@@ -301,7 +301,7 @@ module.exports = function(app, passport) {
   app.post('/api/task', function(req, res, next) {
     Task.findOne({id: req.body.id}, function(err, existingTask) {
         if (existingTask) {
-          return next(err);
+          return next(existingTask);
         } else {
           var task = new Task();
           task.id = req.user.id + req.body.id; //user id and timestamp
@@ -334,6 +334,40 @@ module.exports = function(app, passport) {
            res.send(tasks);
          }
        });
+     });
+   });
+
+   /**
+    * POST /api/follow
+    * Create a new followed repo
+    */
+   app.post('/api/follow', function(req, res, next) {
+     Follow.findOne({owner: req.body.owner, name: req.body.name, user:req.user.id}, function(err, existingFollow) {
+       if (existingFollow) {
+         return next(existingFollow);
+       } else {
+         var follow = new Follow();
+         follow.owner = req.body.owner;
+         follow.name = req.body.name;
+         follow.user = req.user.id;
+         follow.save(function(err) {
+           res.send(follow);
+         });
+       }
+     });
+   });
+
+   /**
+    * Get /api/follow
+    * Get a user's followed repos
+    */
+   app.get('/api/follow', function(req, res, next) {
+     Follow.find({user: req.user.id}, function(err, tasks) {
+       if (err) {
+         next(err);
+       } else {
+         res.send(tasks);
+       }
      });
    });
 

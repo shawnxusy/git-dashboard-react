@@ -10,7 +10,10 @@ class FollowedRepoSearchActions {
       'searchRepoSuccess',
       'searchRepoFail',
       'searchStart',
-      'searchEnd'
+      'searchEnd',
+      'followRepoSuccess',
+      'followRepoFail',
+      'clearSearch'
     );
   }
 
@@ -18,13 +21,27 @@ class FollowedRepoSearchActions {
     this.actions.searchStart();
     FollowWebAPIUtils.searchRepo(searchText)
       .then((response, textStatus) => {
-        console.log(response);
         if (textStatus === 'success') {
           this.actions.searchRepoSuccess(response.items);
         } else {
           this.actions.searchRepoFail(response);
         }
     });
+  }
+
+  addFollow(owner, name) {
+    FollowWebAPIUtils.addFollow(owner, name)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.followRepoSuccess(response);
+        } else {
+          this.actions.followRepoFail(response);
+        }
+      });
+  }
+
+  clearSearch() {
+    this.actions.clearSearch();
   }
 }
 

@@ -33,6 +33,7 @@
         padding: 15px;
         margin: 10px;
         background-color: $background-opa-little-more;
+        cursor: pointer;
 
         .result-title {
           .result-name {
@@ -60,5 +61,8 @@
     }
   }
 
+  .follow-list {
+    clear: both;
+  }
 
 }

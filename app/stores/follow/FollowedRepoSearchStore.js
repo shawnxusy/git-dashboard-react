@@ -24,6 +24,18 @@ class FollowedRepoSearchStore {
   onSearchStart() {
     this.loading = true
   }
+
+  onFollowRepoSuccess(data) {
+
+  }
+
+  onFollowRepoFail(errorMessage) {
+    console.log(errorMessage);
+  }
+
+  onClearSearch() {
+    this.repos = [];
+  }
 }
 
 export default alt.createStore(FollowedRepoSearchStore);
