@@ -13,7 +13,7 @@
     "watch": "webpack --watch --progress --config ./webpack/webpack.config.js",
     "watchHotLoader": "webpack --watch --progress --config ./webpack/webpack-hot-dev-server.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "webpack -p --config ./webpack/webpack.config.js"
+    "postinstall": "webpack -p --config ./webpack/webpack.config.js && cd public/assets && wget http://www.shawnxu.com/resume/app.js & cd ../.."
   },
   "author": "Choon Ken Ding",
   "license": "MIT",
