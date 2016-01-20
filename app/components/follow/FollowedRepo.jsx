@@ -24,7 +24,7 @@ export default class FollowedRepo extends React.Component {
       if (that.props.repo.commits.length > 0) {
         ReactDOM.render(React.createElement(ReactHighcharts, { config: configs }), document.getElementById('time-series-chart' + that.props.repo.owner + that.props.repo.name));
       }
-    }, 2500);
+    }, 1500);
   }
 
   buildConfigs() {
