@@ -72,7 +72,7 @@ module.exports = [
       loaders: commonLoaders
     },
     resolve: {
-      extensions: ['', '.react.js', '.js', '.jsx', '.scss', 'css'],
+      extensions: ['', '.react.js', '.js', '.jsx', '.scss'],
       modulesDirectories: [
         "app", "node_modules"
       ]
@@ -104,7 +104,7 @@ module.exports = [
       loaders: commonLoaders
     },
     resolve: {
-      extensions: ['', '.react.js', '.js', '.jsx', '.scss', 'css'],
+      extensions: ['', '.react.js', '.js', '.jsx', '.scss'],
       modulesDirectories: [
         "app", "node_modules"
       ]
