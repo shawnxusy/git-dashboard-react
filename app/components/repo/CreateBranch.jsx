@@ -15,23 +15,21 @@ export default class CreateBranch extends React.Component {
     });
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group">
-            <label className="control-label">Branch Name</label>
-            <input type="text" className="form-control" ref="nameTextField" value={this.props.newBranch.name}
-                   onChange={RepoActions.updateBranchName} autoFocus/>
-          </div>
-          <div className="form-group">
-            <label className="control-label">Branch from:</label>
-            <select className="form-control" ref="branchFromField" value={this.props.newBranch.branchFrom}
-                   onChange={RepoActions.updateBranchFrom} >
-               {branchOptions}
-             </select>
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit.bind(this)} className="create-branch-form">
+        <div className="form-group">
+          <label className="control-label">Branch Name</label>
+          <input type="text" className="form-control" ref="nameTextField" value={this.props.newBranch.name}
+                 onChange={RepoActions.updateBranchName} autoFocus/>
+        </div>
+        <div className="form-group">
+          <label className="control-label">Branch from:</label>
+          <select className="form-control" ref="branchFromField" value={this.props.newBranch.branchFrom}
+                 onChange={RepoActions.updateBranchFrom} >
+             {branchOptions}
+           </select>
+        </div>
+        <button type="submit" className="btn btn-primary branch-submit">Submit</button>
+      </form>
     );
   }
 

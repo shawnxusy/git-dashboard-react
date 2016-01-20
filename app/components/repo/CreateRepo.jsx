@@ -7,38 +7,36 @@ export default class CreateRepo extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group">
-            <label className="control-label">Repository Name</label>
-            <input type="text" className="form-control" ref="nameTextField" value={this.props.newRepo.name}
-                   onChange={RepoListActions.updateName} autoFocus/>
+      <form onSubmit={this.handleSubmit.bind(this)} className="create-repo-form">
+        <div className="form-group">
+          <label className="control-label">Repository Name</label>
+          <input type="text" className="form-control" ref="nameTextField" value={this.props.newRepo.name}
+                 onChange={RepoListActions.updateName} autoFocus/>
+        </div>
+        <div className="form-group">
+          <label className="control-label">Description</label>
+          <input type="text" className="form-control" ref="descriptionTextField" value={this.props.newRepo.description}
+                 onChange={RepoListActions.updateDescription} />
+        </div>
+        <div className="form-group">
+          <label className="control-label">Homepage</label>
+          <input type="text" className="form-control" value={this.props.newRepo.homepage}
+                 onChange={RepoListActions.updateHomepage} />
+        </div>
+        <div className="form-group form-group-last">
+          <div className="radio radio-inline">
+            <input type="radio" name="privacy" id="public" value="public" checked={this.props.newRepo.privacy === 'public'}
+                   onChange={RepoListActions.updatePrivacy}/>
+            <label htmlFor="public">Public</label>
           </div>
-          <div className="form-group">
-            <label className="control-label">Description</label>
-            <input type="text" className="form-control" ref="descriptionTextField" value={this.props.newRepo.description}
-                   onChange={RepoListActions.updateDescription} />
+          <div className="radio radio-inline">
+            <input type="radio" name="privacy" id="private" value="private" checked={this.props.newRepo.privacy === 'private'}
+                   onChange={RepoListActions.updatePrivacy}/>
+            <label htmlFor="private">Private</label>
           </div>
-          <div className="form-group">
-            <label className="control-label">Homepage</label>
-            <input type="text" className="form-control" value={this.props.newRepo.homepage}
-                   onChange={RepoListActions.updateHomepage} />
-          </div>
-          <div className="form-group">
-            <div className="radio radio-inline">
-              <input type="radio" name="privacy" id="public" value="public" checked={this.props.newRepo.privacy === 'public'}
-                     onChange={RepoListActions.updatePrivacy}/>
-              <label htmlFor="public">Public</label>
-            </div>
-            <div className="radio radio-inline">
-              <input type="radio" name="privacy" id="private" value="private" checked={this.props.newRepo.privacy === 'private'}
-                     onChange={RepoListActions.updatePrivacy}/>
-              <label htmlFor="private">Private</label>
-            </div>
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </div>
+        </div>
+        <button type="submit" className="btn btn-primary repo-submit">Submit</button>
+      </form>
     );
   }
 

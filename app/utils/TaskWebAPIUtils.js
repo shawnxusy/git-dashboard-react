@@ -17,6 +17,14 @@ const utils = {
       url: '/api/tasks',
       type: 'GET'
     });
+  },
+
+  deleteTask: (id) => {
+    return $.ajax({
+      url: '/api/task',
+      type: 'DELETE',
+      data: {id: id}
+    });
   }
 
 };

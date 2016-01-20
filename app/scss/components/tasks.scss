@@ -1,0 +1,70 @@
+/**
+ * Tasks
+ */
+
+.tasks {
+  padding: 0 5%;
+
+  .title {
+    font-size: 1.2em;
+    font-weight: 200;
+  }
+
+  .links {
+    .toggle {
+      width: 50px;
+      padding: 5px 15px;
+      background-color: $background-opa;
+      display: inline;
+    }
+    a.toggle {
+      @include anchor($main-white, $hover-white);
+    }
+
+    .toggle-on {
+      background-color: $background-opa-more;
+    }
+  }
+
+  .task-list {
+    clear: both;
+
+    .task-node {
+      .task-wrapper {
+        margin: 10px 0;
+        padding: 20px 5% 15px 5%;
+        background-color: $background-opa;
+        display: block;
+        
+        .task-name {
+          font-size: 1.1em;
+          font-weight: 200;
+          margin-bottom: 10px;
+          padding-bottom: 5px;
+          margin-bottom: 10px;
+          border-bottom: 1px dotted $background-opa-more;
+        }
+
+        .task-stats {
+          font-size: 0.9em;
+          .fa {
+            margin-right: 5px;
+          }
+        }
+      }
+
+      .delete-task {
+        margin: 10px 0 10px 10px;
+        padding: 20px 10px 15px 10px;
+        background-color: $background-opa-much-less;
+        @include anchor($main-white, $hover-white);
+        cursor: pointer;
+
+        .fa {
+          margin-right: 5px;
+        }
+      }
+
+    }
+  }
+}

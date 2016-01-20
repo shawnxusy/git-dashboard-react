@@ -6,7 +6,9 @@ class TaskListActions {
   constructor() {
     this.generateActions(
       'getTasksSuccess',
-      'getTasksFail'
+      'getTasksFail',
+      'deleteTaskSuccess',
+      'deleteTaskFail'
     );
   }
 
@@ -17,6 +19,17 @@ class TaskListActions {
           this.actions.getTasksSuccess(response);
         } else {
           this.actions.getTasksFail(response);
+        }
+      });
+  }
+
+  deleteTask(id) {
+    TaskWebAPIUtils.deleteTask(id)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.deleteTaskSuccess(response);
+        } else {
+          this.actions.deleteTaskFail(response);
         }
       });
   }

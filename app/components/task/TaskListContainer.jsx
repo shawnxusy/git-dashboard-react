@@ -1,6 +1,7 @@
 /* jshint esnext:true */
 
 import React from 'react';
+import { Link } from 'react-router';
 import ReactDOM from 'react-dom';
 
 import TaskListStore from 'stores/task/TaskListStore';
@@ -23,7 +24,6 @@ export default class TaskListContainer extends React.Component {
     TaskListStore.listen(this.onChange);
     TaskListActions.getTasks();
 
-    this.drawGanttChart();
   }
 
   componentWillUnmount() {
@@ -32,6 +32,7 @@ export default class TaskListContainer extends React.Component {
 
   onChange(state) {
     this.setState(state);
+    this.drawGanttChart();
   }
 
   drawGanttChart() {
@@ -45,21 +46,40 @@ export default class TaskListContainer extends React.Component {
     }, 500);
   }
 
+  deleteTask = (id) => {
+    TaskListActions.deleteTask(id);
+  }
+
   render() {
     let taskNodes = this.state.tasks.map((task, index) => {
       return (
-        <div key={index}>
-          <div>{task.name} - {task.duration} hours</div>
+        <div key={index} className="task-node row">
+          <div className="task-wrapper col-sm-8">
+            <div className="task-name">{task.name}</div>
+            <div className="task-stats">{task.duration} hours</div>
+          </div>
+          <a onClick={this.deleteTask.bind(this, task.id)} className="delete-task col-sm-3 center">
+            <i className="fa fa-times"></i> Delete task
+          </a>
         </div>
       );
     });
 
     return (
-      <div>
+      <div className="tasks">
+        <div className="row">
+          <p className="title col-sm-4">Tasks</p>
+          <div className="links col-sm-offset-4 col-sm-4">
+            <Link to="/" className="toggle">Repos</Link>
+            <div className="toggle toggle-on">Tasks</div>
+          </div>
+        </div>
         <div id="test">
         </div>
-        <h3>A list of tasks listed here</h3>
+        <h4>All Tasks</h4>
+        <div className="task-list">
         {taskNodes}
+        </div>
       </div>
     );
   }

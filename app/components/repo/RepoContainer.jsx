@@ -1,6 +1,7 @@
 /* jshint esnext:true */
 
 import React from 'react';
+import { Link } from 'react-router';
 import RepoStore from 'stores/repo/RepoStore';
 import RepoActions from 'actions/repo/RepoActions';
 import RepoBranchList from 'components/repo/RepoBranchList';
@@ -46,22 +47,31 @@ export default class RepoContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3 className="text-center">This is showing a single repo!</h3>
-        <div>
-          {this.state.repo.id} - {this.state.repo.name}
+      <div className="repos">
+        <div className="row">
+          <p className="title col-sm-8"><Link to="/">Public Repos</Link> / {this.state.repo.name}</p>
+          <div className="links col-sm-4">
+            <div to="/" className="toggle toggle-on">Repos</div>
+            <Link to="/task" className="toggle">Tasks</Link>
+          </div>
         </div>
-        <div>
-          <h4 className="text-center">A list of repo branches</h4>
-          <a onClick={this.toggleCreateBranch}>Create new branch</a>
+        <div className="repo">
+          <h4 className="text-center">Branches</h4>
+          <a onClick={this.toggleCreateBranch} className="create-new-clicker center in-repo">
+            <i className={this.state.createBranch ? 'fa fa-times' : 'fa fa-plus'}></i>
+            {this.state.createBranch ? 'Cancel' : 'New Branch'}
+          </a>
           <div className={this.state.createBranch ? '' : 'no-display'}>
             <CreateBranch newBranch={this.state.newBranch} isDone={this.toggleCreateBranch} branches={this.state.branches} repoName={this.state.repo.name} />
           </div>
           <RepoBranchList branches={this.state.branches} repoName={this.state.repo.name}/>
         </div>
-        <div>
-          <h4 className="text-center">A list of repo issues</h4>
-          <a onClick={this.toggleCreateIssue}>Create new issue</a>
+        <div className="repo">
+          <h4 className="text-center">Issues</h4>
+          <a onClick={this.toggleCreateIssue} className="create-new-clicker center in-repo">
+            <i className={this.state.createIssue ? 'fa fa-times' : 'fa fa-plus'}></i>
+            {this.state.createIssue ? 'Cancel' : 'New Issue'}
+          </a>
           <div className={this.state.createIssue ? '' : 'no-display'}>
             <CreateIssue newIssue={this.state.newIssue} isDone={this.toggleCreateIssue} issues={this.state.issues} repoName={this.state.repo.name} />
           </div>

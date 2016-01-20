@@ -59,7 +59,7 @@ export default class CreateTask extends React.Component {
             onChange={this.updateTaskDescription} placeholder="Description (optional)"/>);
       taskStart = (<DatePicker selected={this.props.branch.newTask.start} ref="taskStartField" onChange={this.updateTaskStart} />);
       taskDuration = (<input type="text" className="form-control" ref="taskDurationField" value={this.props.branch.newTask.duration}
-            onChange={this.updateTaskDuration} placeholder="Duration for this task"/>);
+            onChange={this.updateTaskDuration} placeholder="Duration for this task (in days)"/>);
       typeName = (<input type="text" className="form-control" ref="branchField" defaultValue={this.props.branch.name} disabled/>);
     } else {
       taskName = (<input type="text" className="form-control" ref="taskNameField" value={this.props.issue.newTask.name}
@@ -68,31 +68,29 @@ export default class CreateTask extends React.Component {
             onChange={this.updateTaskDescription} placeholder="Description (optional)"/>);
       taskStart = (<DatePicker selected={this.props.issue.newTask.start} ref="taskStartField" onChange={this.updateTaskStart} />);
       taskDuration = (<input type="text" className="form-control" ref="taskDurationField" value={this.props.issue.newTask.duration}
-            onChange={this.updateTaskDuration} placeholder="Duration for this task"/>);
+            onChange={this.updateTaskDuration} placeholder="Duration for this task (in days)"/>);
       typeName = (<input type="text" className="form-control" ref="issueField" defaultValue={this.props.issue.title} disabled/>);
     }
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group">
-            {taskName}
-          </div>
-          <div className="form-group">
-            {typeName}
-          </div>
-          <div className="form-group">
-            {taskDescription}
-          </div>
-          <div className="form-group">
-            {taskStart}
-          </div>
-          <div className="form-group">
-            {taskDuration}
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit.bind(this)} className="create-task-form">
+        <div className="form-group">
+          {taskName}
+        </div>
+        <div className="form-group">
+          {typeName}
+        </div>
+        <div className="form-group">
+          {taskDescription}
+        </div>
+        <div className="form-group task-date-picker">
+          {taskStart}
+        </div>
+        <div className="form-group">
+          {taskDuration}
+        </div>
+        <button type="submit" className="btn btn-primary task-submit">Submit</button>
+      </form>
     );
   }
 

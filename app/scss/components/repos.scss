@@ -1,0 +1,148 @@
+/**
+ * Repos
+ */
+
+.repos {
+  padding: 0 5%;
+
+  .title {
+    font-size: 1.2em;
+    font-weight: 200;
+    a {
+      @include anchor($main-white, $hover-white);
+    }
+  }
+
+  .links {
+    .toggle {
+      width: 50px;
+      padding: 5px 15px;
+      background-color: $background-opa;
+      display: inline;
+    }
+    a.toggle {
+      @include anchor($main-white, $hover-white);
+    }
+
+    .toggle-on {
+      background-color: $background-opa-more;
+    }
+  }
+
+  .repo-list {
+    clear: both;
+
+    .repo-node {
+      margin: 10px 0;
+      padding: 20px 5% 15px 5%;
+      background-color: $background-opa;
+      @include anchor($main-white, $hover-white);
+      display: block;
+
+      .repo-wrapper {
+        .repo-name {
+          font-size: 1.1em;
+          font-weight: 200;
+          margin-bottom: 10px;
+        }
+
+        .repo-stats {
+          .fa {
+            margin-right: 5px;
+          }
+        }
+      }
+
+      .repo-arrow {
+        padding-left: 5%;
+        font-size: 3em;
+        font-weight: 200;
+        color: $background-opa-less;
+      }
+    }
+  }
+
+  .create-new-clicker {
+    margin: 10px 0;
+    padding: 20px 20% 15px 20%;
+    background-color: $background-opa-less;
+    @include anchor($main-white, $hover-white);
+    display: block;
+    cursor: pointer;
+    border: 1px dashed $background-opa-more;
+
+    .fa {
+      margin-right: 5px;
+    }
+
+    &.in-repo {
+      margin-left: -15px;
+      margin-right: calc(1/3 * 100% - 25% - 22px);
+    }
+  }
+
+  .create-repo-form, .create-branch-form, .create-issue-form, .create-task-form {
+    .form-group {
+      label {
+        font-weight: 400;
+      }
+      .radio-inline {
+        margin-top: 0;
+      }
+      .form-control {
+        color: $main-white;
+        background-color: $background-opa-less;
+      }
+      &.task-date-picker {
+        input {
+          background-color: $background-opa-less;
+        }
+      }
+    }
+    .repo-submit, .branch-submit, .issue-submit, .task-submit {
+      float: right;
+      background-color: $cyan;
+      padding: 6px 18px;
+      margin-bottom: 15px;
+    }
+    .form-group-last {
+      float: left;
+    }
+  }
+
+  .create-branch-form, .create-issue-form, .create-task-form {
+    margin-left: -15px;
+    margin-right: calc(1/3 * 100% - 25% - 22px);
+  }
+
+  .repo {
+    .branch, .issue {
+      clear: both;
+      .branch-info, .issue-info {
+        margin: 10px 0;
+        padding: 20px 5% 15px 5%;
+        background-color: $background-opa;
+
+        .issue-title {
+          margin-bottom: 10px;
+          padding-bottom: 5px;
+          border-bottom: 1px dotted $background-opa-more;
+        }
+        .issue-body {
+          font-size: 0.9em;
+        }
+      }
+      .add-task {
+        margin: 10px 0 10px 10px;
+        padding: 20px 10px 15px 10px;
+        background-color: $background-opa-much-less;
+        @include anchor($main-white, $hover-white);
+        cursor: pointer;
+
+        .fa {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

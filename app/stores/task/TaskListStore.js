@@ -46,10 +46,9 @@ class TaskListStore {
 
   static displayName = 'TaskListStore';
 
-  onGetTasksSuccess(data) {
+  bootstrapChartWithTasks(tasks) {
     this.bootstrapChartConfigs();
-    this.tasks = data;
-    _.each(this.tasks, function(task, idx) {
+    _.each(tasks, function(task, idx) {
       this.chartConfigs.yAxis.categories.push(task.name);
       let startDate = moment(task.start);
       let endDate = moment(task.start).add(task.duration, 'days');
@@ -67,10 +66,24 @@ class TaskListStore {
         })
       }
     }, this);
-    this.chartConfigs.yAxis.max = this.tasks.length - 1;
+    this.chartConfigs.yAxis.max = tasks.length - 1;
+  }
+
+  onGetTasksSuccess(data) {
+    this.tasks = data;
+    this.bootstrapChartWithTasks(this.tasks);
   }
 
   onGetTasksFail(errorMessage) {
+    console.log(errorMessage);
+  }
+
+  onDeleteTaskSuccess(data) {
+    this.tasks = data;
+    this.bootstrapChartWithTasks(this.tasks);
+  }
+
+  onDeleteTaskFail(errorMessage) {
     console.log(errorMessage);
   }
 

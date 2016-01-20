@@ -8,21 +8,19 @@ export default class CreateIssue extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group">
-            <label className="control-label">Issue title</label>
-            <input type="text" className="form-control" ref="titleTextField" placeholder="issue title" value={this.props.newIssue.title}
-                   onChange={RepoActions.updateIssueTitle} autoFocus required/>
-          </div>
-          <div className="form-group">
-            <label className="control-label">Issue body</label>
-            <textarea type="text" className="form-control" ref="bodyTextField" placeholder="issue body" value={this.props.newIssue.body}
-                   onChange={RepoActions.updateIssueBody} />
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit.bind(this)} className="create-issue-form">
+        <div className="form-group">
+          <label className="control-label">Issue title</label>
+          <input type="text" className="form-control" ref="titleTextField" placeholder="issue title" value={this.props.newIssue.title}
+                 onChange={RepoActions.updateIssueTitle} autoFocus required/>
+        </div>
+        <div className="form-group">
+          <label className="control-label">Issue body</label>
+          <textarea type="text" className="form-control" ref="bodyTextField" placeholder="issue body" value={this.props.newIssue.body}
+                 onChange={RepoActions.updateIssueBody} />
+        </div>
+        <button type="submit" className="btn btn-primary issue-submit">Submit</button>
+      </form>
     );
   }
 

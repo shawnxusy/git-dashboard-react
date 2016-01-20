@@ -319,6 +319,23 @@ module.exports = function(app, passport) {
     });
   });
 
+  /**
+   * DELETE /api/task
+   * Delete a task
+   */
+   app.delete('/api/task', function(req, res, next) {
+     Task.findOneAndRemove({id: req.body.id}, function(err, data) {
+       if(err) console.log('Error on delete');
+       // Find all the other tasks and send
+       Task.find({user: req.user.id}, function(err, tasks) {
+         if (err) {
+           return next(err);
+         } else {
+           res.send(tasks);
+         }
+       });
+     });
+   });
 
   // topic routes
   app.get('/topic', topics.all);

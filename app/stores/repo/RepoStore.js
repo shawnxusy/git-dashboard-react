@@ -48,7 +48,13 @@ class RepoStore {
         url: newBranch.object.url
       },
       name: newBranch.ref.slice(11), // Remove 'refs/heads/' to get the branch name
-      taskBox: false
+      taskBox: false,
+      newTask: {
+        name: "",
+        description: "",
+        start: "",
+        duration: ""
+      }
     };
 
     this.branches.unshift(branch); // Optimistically bring it to the front
@@ -68,7 +74,7 @@ class RepoStore {
         name: "",
         description: "",
         start: "",
-        duration: 1
+        duration: ""
       }
     });
   }
@@ -89,7 +95,7 @@ class RepoStore {
         name: "",
         description: "",
         start: "",
-        duration: 1
+        duration: ""
       }
     })
   }
@@ -104,6 +110,13 @@ class RepoStore {
   }
 
   onCreateIssueSuccess(issue) {
+    issue.newTask = {
+      name: "",
+      description: "",
+      start: "",
+      duration: ""
+    };
+    issue.taskBox = false;
     this.issues.unshift(issue);
 
     // Refresh the input boxes
