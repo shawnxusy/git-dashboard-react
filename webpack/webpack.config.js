@@ -16,13 +16,12 @@ var commonLoaders = [
   },
   { test: /\.(png|jpg|gif)$/, loader: "url-loader" },
   { test: /\.html$/, loader: "html-loader" },
-  { test: /\.css$/, loader: 'style-loader!css-loader' },
   { test: /\.woff$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
   { test: /\.woff2$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
   { test: /\.ttf$/,    loader: "url?limit=10000&mimetype=application/octet-stream" },
   { test: /\.eot$/,    loader: "file" },
   { test: /\.svg$/,    loader: "url?limit=10000&mimetype=image/svg+xml" },
-  { test: /\.scss$/,
+  { test: /\.(css|scss)$/,
     loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
   }
 ];
