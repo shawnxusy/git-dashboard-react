@@ -43,6 +43,7 @@ export default class FollowedRepoContainer extends React.Component {
     return (
       <div className="follow">
         <FollowedRepoSearch isDone={this.addFollowCallback}/>
+        <div className="follow-list-title">Commit activity for the projects you are watching</div>
         <div className="follow-list">
           {followedNodes}
         </div>
