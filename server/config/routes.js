@@ -5,6 +5,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var rp = require('request-promise');
 var _ = require('lodash');
+var Promise = require('bluebird');
 
 var Topic = mongoose.model('Topic');
 var Task = mongoose.model('Task');
@@ -362,13 +363,61 @@ module.exports = function(app, passport) {
     * Get a user's followed repos
     */
    app.get('/api/follow', function(req, res, next) {
-     Follow.find({user: req.user.id}, function(err, tasks) {
+     Follow.find({user: req.user.id}, function(err, repos) {
        if (err) {
          next(err);
        } else {
-         res.send(tasks);
+         var promiseArr = [];
+         _.each(repos, function(repo) {
+           var followedRepoPack = {
+             method: 'GET',
+             url: 'https://api.github.com/repos/' + repo.owner + '/' + repo.name + '/stats/commit_activity' + rateLimitDisabler,
+             headers: {
+               'User-Agent': 'S.X Dashboard',
+               'Content-type': 'application/json'
+             },
+             json: true
+           };
+           promiseArr.push(rp(followedRepoPack).promise());
+         });
+
+         var reposWithCommits = [];
+         Promise.all(promiseArr).then(function(valArr) {
+           _.each(valArr, function(val, index) {
+             reposWithCommits.push({
+               owner: repos[index].owner,
+               name: repos[index].name,
+               commits: val
+             });
+           });
+           res.send(reposWithCommits);
+         });
        }
      });
+   });
+
+   /**
+    * Get /api/followedRepo
+    * Get a user's followed repo
+    */
+   app.get('/api/follow/commits/:owner/:name', function(req, res, next) {
+     var followedRepoPack = {
+       method: 'GET',
+       url: 'https://api.github.com/repos/' + req.params.owner + '/' + req.params.name + '/stats/commit_activity' + rateLimitDisabler,
+       headers: {
+         'User-Agent': 'S.X Dashboard',
+         'Content-type': 'application/json'
+       },
+       json: true
+     };
+
+     rp(followedRepoPack)
+       .then(function(response) {
+         res.send(response);
+       })
+       .catch(function(err) {
+         return next(err);
+       });
    });
 
   // topic routes

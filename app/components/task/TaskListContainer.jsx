@@ -41,7 +41,7 @@ export default class TaskListContainer extends React.Component {
     var that = this;
     setTimeout(function(){
       if (that.state.tasks.length > 0) {
-        ReactDOM.render(React.createElement(ReactHighcharts, { config: that.state.chartConfigs }), document.getElementById('test'));
+        ReactDOM.render(React.createElement(ReactHighcharts, { config: that.state.chartConfigs }), document.getElementById('task-chart'));
       }
     }, 500);
   }
@@ -81,7 +81,7 @@ export default class TaskListContainer extends React.Component {
             <div className="toggle toggle-on">Tasks</div>
           </div>
         </div>
-        <div id="test">
+        <div id="task-chart">
         </div>
         <h4>All Tasks</h4>
         <div className="task-list">

@@ -1,15 +1,15 @@
 /* jshint esnext:true */
 
 import alt from 'altInstance';
-import FollowedRepoActions from 'actions/follow/FollowedRepoActions';
+import FollowedRepoListActions from 'actions/follow/FollowedRepoListActions';
 
-class FollowedRepoStore {
+class FollowedRepoListStore {
   constructor() {
-    this.bindActions(FollowedRepoActions);
+    this.bindActions(FollowedRepoListActions);
     this.followedRepos = [];
   }
 
-  static displayName = 'FollowedRepoStore';
+  static displayName = 'FollowedRepoListStore';
 
   onGetFollowedReposSuccess(data) {
     this.followedRepos = data;
@@ -18,6 +18,7 @@ class FollowedRepoStore {
   onGetFollowedReposFail(errorMessage) {
     console.log(errorMessage);
   }
+
 }
 
-export default alt.createStore(FollowedRepoStore);
+export default alt.createStore(FollowedRepoListStore);

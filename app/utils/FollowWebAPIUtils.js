@@ -23,6 +23,13 @@ const utils = {
       url: "/api/follow",
       type: "GET"
     });
+  },
+
+  getFollowedRepoCommits: (owner, name) => {
+    return $.ajax({
+      url: "/api/follow/commits/" + owner + "/" + name,
+      type: 'GET'
+    });
   }
 };
 

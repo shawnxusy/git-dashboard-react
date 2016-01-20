@@ -1,42 +1,42 @@
 /* jshint esnext: true */
 
 import React from 'react';
-import FollowedRepoStore from 'stores/follow/FollowedRepoStore';
-import FollowedRepoActions from 'actions/follow/FollowedRepoActions';
+import FollowedRepoListStore from 'stores/follow/FollowedRepoListStore';
+import FollowedRepoListActions from 'actions/follow/FollowedRepoListActions';
 
 import FollowedRepoSearch from 'components/follow/FollowedRepoSearch';
 import FollowedRepo from 'components/follow/FollowedRepo';
 
-export default class FollowedRepoList extends React.Component {
+export default class FollowedRepoContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = FollowedRepoStore.getState();
+    this.state = FollowedRepoListStore.getState();
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    FollowedRepoStore.listen(this.onChange);
-    FollowedRepoActions.getFollowedRepos();
+    FollowedRepoListStore.listen(this.onChange);
+    FollowedRepoListActions.getFollowedRepos();
   }
 
   componentWillUnmount() {
-    FollowedRepoStore.unlisten(this.onChange);
+    FollowedRepoListStore.unlisten(this.onChange);
   }
 
   onChange() {
-    this.setState(FollowedRepoStore.getState());
+    this.setState(FollowedRepoListStore.getState());
   }
 
   addFollowCallback = () => {
-    FollowedRepoActions.getFollowedRepos();
+    FollowedRepoListActions.getFollowedRepos();
   }
 
   render() {
     let followedNodes = this.state.followedRepos.map((repo, index) => {
       return (
         <div key={index}>
-          <FollowedRepo repo={repo} />
+          <FollowedRepo repo={repo}/>
         </div>
       );
     });

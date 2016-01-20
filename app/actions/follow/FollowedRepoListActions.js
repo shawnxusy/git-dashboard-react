@@ -4,7 +4,7 @@ import alt from 'altInstance';
 
 import FollowWebAPIUtils from 'utils/FollowWebAPIUtils';
 
-class FollowedRepoActions {
+class FollowedRepoListActions {
   constructor() {
     this.generateActions(
       'getFollowedReposSuccess',
@@ -24,4 +24,4 @@ class FollowedRepoActions {
   }
 }
 
-module.exports = alt.createActions(FollowedRepoActions);
+module.exports = alt.createActions(FollowedRepoListActions);
